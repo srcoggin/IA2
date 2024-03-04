@@ -11,3 +11,26 @@ class DataStore:
     def __del__(self):
         self.db.close()
 
+    #Patient Functions
+    def SearchAllPatientID(self):
+        self.cursor.execute(
+         """
+                SELECT ID FROM Patients
+            """
+        )
+        List = self.cursor.fetchall()
+        id = ""
+        for i in List:
+            id += "{}".format(i)
+        return id
+
+    def SelectMatchingPatient(self, patientid):
+        self.cursor.execute(
+            """
+                SELECT * FROM Patients
+                WHERE Id LIKE :patientid
+            """,
+            {'patientid': patientid}
+        )
+        List = self.cursor.fetchall()
+        return List

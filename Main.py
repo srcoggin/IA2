@@ -18,4 +18,3 @@ app.exec_()
 running = True
 while running:
     QtCore.QCoreApplication.processEvents()
-    menu_selection = ui.menu()
