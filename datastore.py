@@ -28,9 +28,46 @@ class DataStore:
         self.cursor.execute(
             """
                 SELECT * FROM Patients
-                WHERE Id LIKE :patientid
+                WHERE ID LIKE :patientid
             """,
             {'patientid': patientid}
         )
         List = self.cursor.fetchall()
         return List
+    
+    def SelectMatchingPatientName(self, firstname, lastname):
+        self.cursor.execute(
+            """
+                SELECT * FROM Patients
+                WHERE FirstName LIKE :firstname AND LastName LIKE :lastname
+            """,
+            {'firstname': firstname, 'lastname': lastname}
+        )
+        List = self.cursor.fetchall()
+        return List
+
+
+    
+    def MatchingPatientLastName(self):
+        self.cursor.execute(
+            """
+                SELECT LastName FROM Patients
+            """,
+        )
+        List = self.cursor.fetchall()
+        id = ""
+        for i in List:
+                id += "{}".format(i)
+        return id
+
+    def MatchingPatientFirstName(self):
+        self.cursor.execute(
+            """
+                SELECT FirstName FROM Patients
+            """,
+        )
+        List = self.cursor.fetchall()
+        id = ""
+        for i in List:
+                id += "{}".format(i)
+        return id
