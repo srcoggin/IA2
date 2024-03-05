@@ -43,6 +43,7 @@ class MainWindow():
         self.ui.PatientNameSearchButton.clicked.connect(self.SearchByNamePatients)
         self.ui.PatientEditData_Button.clicked.connect(self.EditPatientData)
         self.ui.DeletePatientButton.clicked.connect(self.DeletePatientData)
+        self.ui.PatientAddDataButton.clicked.connect(self.AddNewPatient)
 
         #Clinician Page Buttons
         self.ui.ClinicianAppointmentButton.clicked.connect(self.AppointmentPageSelect)
@@ -57,7 +58,9 @@ class MainWindow():
         self.main_win.show()
     #Exits the program
     def Exit(self):
+        self.LogFile.close()
         exit()
+        
 
     #Error Pop Up Box
     def error(self):
@@ -95,14 +98,14 @@ class MainWindow():
             name = self.ds.MatchingClinicianName(LoginPin)
             self.ui.stackedWidget.setCurrentWidget(self.ui.Home)
             msg.setWindowTitle("Welcome")
-            msg.setText(f"Welcome Back {name}!")
+            msg.setText(f"Welcome Back, {name}!")
             self.LogFile.write(f"\n{name}, has logged into the app at {self.currentdate}")
-            self.LogFile.close()
             msg.setStandardButtons(QMessageBox.Close)
             msg.exec()
 
     #Patients Page Functions
     def SearchByIDPatients(self):
+        Name = self.ds.MatchingClinicianName(self.ui.LoginPage_PinEnter.text())
         ID = self.ui.PatientIdSearchInput.text()
         IDs = self.ds.SearchAllPatientID()
         if ID not in IDs:
@@ -122,8 +125,12 @@ class MainWindow():
                     self.ui.PhotoLabel.setPixmap(QtGui.QPixmap(f"{i[6]}"))
             if self.ui.PatientIDSpinBox.value() != self.ui.PatientID_edit.text():
                 self.ui.PatientIDSpinBox.setValue(int(self.ui.PatientID_edit.text()))
+            FirstName = self.ui.PatientFirstName_Edit.text()
+            LastName = self.ui.PatientLastName_edit.text()
+            self.LogFile.write(f"\n{Name}, has searched for {FirstName} {LastName}, By Searching for their ID, at {self.currentdate}, Succsesfully")
 
     def PatientSpinBoxSelected(self):
+        Name = self.ds.MatchingClinicianName(self.ui.LoginPage_PinEnter.text())
         if self.ui.PatientIDSpinBox.value() == 0:
             pass
         else:
@@ -132,7 +139,10 @@ class MainWindow():
                 IDs = self.ds.SearchAllPatientID()
                 if ID not in IDs:
                     self.error()
-                    self.ui.PatientIDSpinBox.setValue(int(self.ui.PatientID_edit.text()))
+                    if self.ui.PatientID_edit.text() == "":
+                        self.ui.PatientIDSpinBox.setValue(int(self.ui.PatientIDSpinBox.value()) -1)
+                    else:
+                        self.ui.PatientIDSpinBox.setValue(int(self.ui.PatientID_edit.text()))
                 else:
                     PatientData = self.ds.SelectMatchingPatient(self.ui.PatientIDSpinBox.value())
                     for i in PatientData:
@@ -148,8 +158,12 @@ class MainWindow():
                             self.ui.PhotoLabel.setPixmap(QtGui.QPixmap(f"{i[6]}"))
             else:
                 print("its broke")
+            FirstName = self.ui.PatientFirstName_Edit.text()
+            LastName = self.ui.PatientLastName_edit.text()
+            self.LogFile.write(f"\n{Name}, has searched for {FirstName} {LastName}, By Scrolling through the SpinBox, at {self.currentdate}, Succsesfully")
         
     def SearchByNamePatients(self):
+        Name = self.ds.MatchingClinicianName(self.ui.LoginPage_PinEnter.text())
         msg = QMessageBox()
         FirstName = self.ui.PatientFirstNameSearchInput.text()
         LastName = self.ui.PatientLastNameSearchInput.text()
@@ -181,28 +195,46 @@ class MainWindow():
                         self.ui.PhotoLabel.setPixmap(QtGui.QPixmap(f"{i[6]}"))
                 if self.ui.PatientIDSpinBox.value() != self.ui.PatientID_edit.text():
                     self.ui.PatientIDSpinBox.setValue(int(self.ui.PatientID_edit.text()))
+        FirstName = self.ui.PatientFirstName_Edit.text()
+        LastName = self.ui.PatientLastName_edit.text()
+        self.LogFile.write(f"\n{Name}, has searched for {FirstName} {LastName}, By Searching for their name, at {self.currentdate}, Succsesfully")
 
     def DeletePatientData(self):
+        msg = QMessageBox()
+        Name = self.ds.MatchingClinicianName(self.ui.LoginPage_PinEnter.text())
         PatientID = self.ui.DeletePatientIDInput.text()
         MatchingID = self.ds.SearchAllPatientID()
         if PatientID not in MatchingID:
             self.error()
         else:
-            msg = QMessageBox()
             msg.setText("Are you sure you want to do this?")
             msg.setWindowTitle("Are you sure!")
             msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
             button_clicked = msg.exec()
             if button_clicked == QMessageBox.Yes:
+                PatientData = self.ds.SelectMatchingPatient(self.ui.DeletePatientIDInput.text())
+                for i in PatientData:
+                    self.ui.PatientFirstName_Edit.setText(i[1])
+                    self.ui.PatientLastName_edit.setText(i[2])
+                FirstName = self.ui.PatientFirstName_Edit.text()
+                LastName = self.ui.PatientLastName_edit.text()
+                self.LogFile.write(f"\n{Name}, has Deleted {FirstName} {LastName} from the Data Base, using their ID, at {self.currentdate}, Succsesfully")
                 self.ds.DeletePatient(PatientID)
             elif button_clicked == QMessageBox.No:
                 QMessageBox.close
             else:
                 QMessageBox.close
-            
+        self.ui.PatientFirstName_Edit.clear()
+        self.ui.PatientLastName_edit.clear()
+        self.ui.PatientAddress_edit.clear()
+        self.ui.PatientID_edit.clear()
+        self.ui.PatientHeight_Edit.clear()
+        self.ui.PatientWeight_Edit.clear()
 
+        
 
     def EditPatientData(self):
+        Name = self.ds.MatchingClinicianName(self.ui.LoginPage_PinEnter.text())
         FirstName = self.ui.PatientFirstName_Edit.text()
         LastName = self.ui.PatientLastName_edit.text()
         PatientID = self.ui.PatientID_edit.text()
@@ -223,6 +255,7 @@ class MainWindow():
                 msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
                 button_clicked = msg.exec()
                 if button_clicked == QMessageBox.Yes:
+                    self.LogFile.write(f"\n{Name}, has Edited {FirstName} {LastName}'s Data, at {self.currentdate}, Succsesfully")
                     self.ds.UpdateDetails(FirstName, LastName, Address, PatientID, Weight, Height)
                     self.ds.DeletePatient(self.ui.PatientIDSpinBox.text())
                 elif button_clicked == QMessageBox.No:
@@ -237,6 +270,29 @@ class MainWindow():
             QMessageBox.close
 
     def AddNewPatient(self):
-        pass
+        Name = self.ds.MatchingClinicianName(self.ui.LoginPage_PinEnter.text())
+        FirstName = self.ui.PatientFirstName_Edit.text()
+        LastName = self.ui.PatientLastName_edit.text()
+        PatientID = self.ui.PatientID_edit.text()
+        Address = self.ui.PatientAddress_edit.text()
+        Weight = self.ui.PatientWeight_Edit.text()
+        Height = self.ui.PatientHeight_Edit.text()
+        MatchingID = self.ds.SearchAllPatientID()
+        msg = QMessageBox()
+        msg.setText("Are you sure you want to do this?")
+        msg.setWindowTitle("Are you sure!")
+        msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+        button_clicked = msg.exec()
+        if button_clicked == QMessageBox.Yes:
+            if PatientID in MatchingID:
+                msg.setText("A Patient Already exists under this ID...")
+                msg.setWindowTitle("Operation Failed!")
+            else:
+                self.ds.NewPatientDS(FirstName, LastName, PatientID, Weight, Height, Address)
+                self.LogFile.write(f"\n{Name}, has Added a new Patient, {FirstName} {LastName}, at {self.currentdate}, Succsesfully")
+        elif button_clicked == QMessageBox.No:
+            QMessageBox.close
+        else:
+            QMessageBox.close
 
 

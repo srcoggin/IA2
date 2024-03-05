@@ -91,6 +91,16 @@ class DataStore:
             {"PatientID": PatientID}
         )
         self.db.commit()
+
+    def NewPatientDS(self, FirstName, LastName, PatientID, Weight, Height, Address):
+        self.cursor.execute(
+            """
+                INSERT INTO Patients (ID, FirstName, Lastname, Weight, Height, Address)
+                VALUES (:PatientID, :FirstName, :LastName, :Weight, :Height, :Address)
+            """,
+            {"PatientID": PatientID, "FirstName": FirstName, "LastName": LastName, "Weight": Weight, "Height": Height, "Address": Address}
+        )
+        self.db.commit()
     
 
     
@@ -119,6 +129,6 @@ class DataStore:
         List = self.cursor.fetchall()
         Pin = ""
         for i in List:
-                Pin += "{}".format(i)
+                Pin += "{}".format(i[0])
         return Pin
     
