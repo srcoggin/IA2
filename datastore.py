@@ -71,3 +71,54 @@ class DataStore:
         for i in List:
                 id += "{}".format(i)
         return id
+    
+    def UpdateDetails(self, FirstName, LastName, Address, PatientID, Weight, Height):
+        self.cursor.execute(
+            """
+                REPLACE INTO Patients (ID, FirstName, Lastname, Address, Weight, Height)
+                VALUES (:ID, :FirstName, :LastName, :Address, :Weight, :Height)
+            """,
+            {"ID": PatientID, "FirstName": FirstName, "LastName": LastName, "Address": Address, "Weight": Weight, "Height": Height}
+        )
+        self.db.commit()
+    
+    def DeletePatient(self, PatientID):
+        self.cursor.execute(
+            """
+                DELETE FROM Patients
+                WHERE ID LIKE :PatientID
+            """,
+            {"PatientID": PatientID}
+        )
+        self.db.commit()
+    
+
+    
+    
+    #Login Page Functions
+    def AllLoginPins(self):
+        self.cursor.execute(
+            """
+                SELECT LoginPin FROM Clinicians
+            """,
+        )
+        List = self.cursor.fetchall()
+        Pins = ""
+        for i in List:
+                Pins += "{}".format(i)
+        return Pins
+    
+    def MatchingClinicianName(self, loginpin):
+        self.cursor.execute(
+            """
+                SELECT FirstName FROM Clinicians
+                WHERE LoginPin LIKE :loginpin
+            """,
+            {'loginpin': loginpin}
+        )
+        List = self.cursor.fetchall()
+        Pin = ""
+        for i in List:
+                Pin += "{}".format(i)
+        return Pin
+    

@@ -1,0 +1,6 @@
+This File Keeps track of the Edits/inputs Clinicians make to the data base.
+
+
+('Sam',), has logged into the app at 2024-03-05 11:22:37.321750
+('Sam',), has logged into the app at 2024-03-05 11:22:48.071842
+('Sam',), has logged into the app at 2024-03-05 11:22:56.282811
