@@ -3,21 +3,3 @@ This File Keeps track of the Edits/inputs Clinicians make to the data base.
 
 
 Will, has logged into the app at 2024-03-06 09:37:58.871058
-Will, has searched for Coreys Jenkinsss, By Scrolling through the SpinBox, at 2024-03-06 09:37:58.871058, Succsesfully
-Will, has searched for Coreys Jenkinsss, By Scrolling through the SpinBox, at 2024-03-06 09:37:58.871058, Succsesfully
-Will, has searched for Coreys Jenkinsss, By Scrolling through the SpinBox, at 2024-03-06 09:37:58.871058, Succsesfully
-Will, has searched for Bob James, By Scrolling through the SpinBox, at 2024-03-06 09:37:58.871058, Succsesfully
-Will, has searched for Coreys Jenkinsss, By Scrolling through the SpinBox, at 2024-03-06 09:37:58.871058, Succsesfully
-Will, has searched for Coreys Jenkinsss, By Searching for their ID, at 2024-03-06 09:37:58.871058, Succsesfully
-Will, has searched for Bob James, By Scrolling through the SpinBox, at 2024-03-06 09:37:58.871058, Succsesfully
-Will, has searched for Bob James, By Searching for their name, at 2024-03-06 09:37:58.871058, Succsesfully
-Will, has Deleted Coreys Jenkinsss from the Data Base, using their ID, at 2024-03-06 09:37:58.871058, Succsesfully
-Will, has searched for Coreys Jenkinsss, By Scrolling through the SpinBox, at 2024-03-06 09:37:58.871058, Succsesfully
-Will, has searched for Coreys Jenkinsss, By Scrolling through the SpinBox, at 2024-03-06 09:37:58.871058, Succsesfully
-Will, has searched for Coreys Jenkinsss, By Scrolling through the SpinBox, at 2024-03-06 09:37:58.871058, Succsesfully
-Will, has logged into the app at 2024-03-06 09:40:36.030049
-Will, has searched for Coreys Jenkinsss, By Scrolling through the SpinBox, at 2024-03-06 09:40:36.030049, Succsesfully
-Will, has searched for Coreys Jenkinsss, By Searching for their ID, at 2024-03-06 09:40:36.030049, Succsesfully
-Will, has Added a new Patient, Coreys Jenkinsss, at 2024-03-06 09:40:36.030049, Succsesfully
-Will, has searched for Bob James, By Scrolling through the SpinBox, at 2024-03-06 09:40:36.030049, Succsesfully
-Will, has Deleted Coreys Jenkinsss from the Data Base, using their ID, at 2024-03-06 09:40:36.030049, Succsesfully

@@ -3,6 +3,7 @@ from UserInterface import Ui_Form
 from datastore import DataStore
 from PyQt5 import QtGui
 import datetime
+from PyQt5.QtWidgets import *
 
 
 
@@ -10,6 +11,7 @@ import datetime
 
 class MainWindow():
     def __init__(self):
+        self.LineEdit = QLineEdit()
         self.currentdate = datetime.datetime.now()
         self.LogFile = open("Log.txt", "a")
         self.main_win = QMainWindow()
@@ -62,13 +64,40 @@ class MainWindow():
         exit()
         
 
-    #Error Pop Up Box
+    #Pop Up Boxes
     def error(self):
         msg = QMessageBox()
         msg.setWindowTitle("Operation Failed")
         msg.setText("    That Operation Cannot be Computed!        ")
         msg.setStandardButtons(QMessageBox.Close)
         msg.exec()
+
+    def OperationUnsuccessful(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Operation Closed!")
+        msg.setText("Operation was not completed.")
+        msg.setStandardButtons(QMessageBox.Close)
+        msg.exec()
+
+    def ClinicianLoginPinPopUpBox(self, Access):
+        AllLoginPins = self.ds.AllLoginPins()
+        text , ok = QInputDialog.getText(self.main_win,'Please Enter your Login Pin','Login Pin = ')
+        if ok:
+            self.LineEdit.setText(str(text))
+            print(self.LineEdit.text())
+            LoginPin = self.LineEdit.text()
+            if LoginPin not in AllLoginPins:
+                msg = QMessageBox()
+                msg.setWindowTitle("That Login Pin is wrong!")
+                msg.setText("Try Again with a new Pin")
+                msg.setStandardButtons(QMessageBox.Close)
+                msg.exec()
+            else:
+                Access = True
+                return Access
+        else:   
+            self.OperationUnsuccessful()
+
 
     #Page Selection Functions
     def PatientsPageSelect(self):
@@ -219,11 +248,17 @@ class MainWindow():
                 FirstName = self.ui.PatientFirstName_Edit.text()
                 LastName = self.ui.PatientLastName_edit.text()
                 self.LogFile.write(f"\n{Name}, has Deleted {FirstName} {LastName} from the Data Base, using their ID, at {self.currentdate}, Succsesfully")
-                self.ds.DeletePatient(PatientID)
+                Access = self.ClinicianLoginPinPopUpBox(False)
+                if Access == True:
+                    self.ds.DeletePatient(PatientID)
+                else:
+                    self.OperationUnsuccessful()
             elif button_clicked == QMessageBox.No:
                 QMessageBox.close
+                self.OperationUnsuccessful()
             else:
                 QMessageBox.close
+                self.OperationUnsuccessful()
         self.ui.PatientFirstName_Edit.clear()
         self.ui.PatientLastName_edit.clear()
         self.ui.PatientAddress_edit.clear()
@@ -255,15 +290,25 @@ class MainWindow():
                 msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
                 button_clicked = msg.exec()
                 if button_clicked == QMessageBox.Yes:
-                    self.LogFile.write(f"\n{Name}, has Edited {FirstName} {LastName}'s Data, at {self.currentdate}, Succsesfully")
-                    self.ds.UpdateDetails(FirstName, LastName, Address, PatientID, Weight, Height)
-                    self.ds.DeletePatient(self.ui.PatientIDSpinBox.text())
+                    Access = self.ClinicianLoginPinPopUpBox(False)
+                    if Access == True:
+                        self.LogFile.write(f"\n{Name}, has Edited {FirstName} {LastName}'s Data, at {self.currentdate}, Succsesfully")
+                        self.ds.UpdateDetails(FirstName, LastName, Address, PatientID, Weight, Height)
+                        self.ds.DeletePatient(self.ui.PatientIDSpinBox.text())
+                    else:
+                        self.OperationUnsuccessful()
                 elif button_clicked == QMessageBox.No:
                     QMessageBox.close
+                    self.OperationUnsuccessful()
                 else:
                     QMessageBox.close
+                    self.OperationUnsuccessful()
             else:
-                self.ds.UpdateDetails(FirstName, LastName, Address, PatientID, Weight, Height)
+                Access = self.ClinicianLoginPinPopUpBox(False)
+                if Access == True:
+                    self.ds.UpdateDetails(FirstName, LastName, Address, PatientID, Weight, Height)
+                else:
+                    self.OperationUnsuccessful()
         elif button_clicked == QMessageBox.No:
             QMessageBox.close
         else:
@@ -284,12 +329,16 @@ class MainWindow():
         msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
         button_clicked = msg.exec()
         if button_clicked == QMessageBox.Yes:
-            if PatientID in MatchingID:
-                msg.setText("A Patient Already exists under this ID...")
-                msg.setWindowTitle("Operation Failed!")
-            else:
-                self.ds.NewPatientDS(FirstName, LastName, PatientID, Weight, Height, Address)
-                self.LogFile.write(f"\n{Name}, has Added a new Patient, {FirstName} {LastName}, at {self.currentdate}, Succsesfully")
+                if PatientID in MatchingID:
+                    msg.setText("A Patient Already exists under this ID...")
+                    msg.setWindowTitle("Operation Failed!")
+                else:
+                    Access = self.ClinicianLoginPinPopUpBox(False)
+                    if Access == True:
+                        self.ds.NewPatientDS(FirstName, LastName, PatientID, Weight, Height, Address)
+                        self.LogFile.write(f"\n{Name}, has Added a new Patient, {FirstName} {LastName}, at {self.currentdate}, Succsesfully")
+                    else:
+                        self.OperationUnsuccessful()
         elif button_clicked == QMessageBox.No:
             QMessageBox.close
         else:
