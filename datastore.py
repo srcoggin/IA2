@@ -132,3 +132,26 @@ class DataStore:
                 Pin += "{}".format(i[0])
         return Pin
     
+    #Clinician Functions
+    def SearchAllClinicianID(self):
+        self.cursor.execute(
+         """
+                SELECT ID FROM Clinicians
+            """
+        )
+        List = self.cursor.fetchall()
+        id = ""
+        for i in List:
+            id += "{}".format(i)
+        return id
+    
+    def SelectMatchingClinician(self, clinicianid):
+        self.cursor.execute(
+            """
+                SELECT * FROM Clinicians
+                WHERE ID LIKE :clinicianid
+            """,
+            {'clinicianid': clinicianid}
+        )
+        List = self.cursor.fetchall()
+        return List

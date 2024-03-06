@@ -22,12 +22,7 @@ class MainWindow():
 
         #Login Page Buttons
         self.ui.EnterButton_LoginPage.clicked.connect(self.Login)
-        self.ui.SignUp_Button_LoginPage.clicked.connect(self.SignUpPageSelect)
         self.ui.ExitButton_LoginPage.clicked.connect(self.Exit)
-
-        #Sign Up Page Buttons
-        self.ui.ExitButton_LoginPage_5.clicked.connect(self.Exit)
-        self.ui.LoginButton_LoginPage_5.clicked.connect(self.LoginPageSelect)
 
         #Home Page Buttons
         self.ui.PatientsButton_HomePage.clicked.connect(self.PatientsPageSelect)
@@ -52,7 +47,7 @@ class MainWindow():
         self.ui.ClinicianPatientsPageButton.clicked.connect(self.PatientsPageSelect)
         self.ui.ClinicianHomePageButton.clicked.connect(self.HomePageSelect)
         self.ui.ExitButtonClinicianPage.clicked.connect(self.Exit)
-
+        self.ui.ClinicianIDSearchButton.clicked.connect(self.SearchByIDClinician)
 
 
     #Shows the user interface
@@ -62,7 +57,7 @@ class MainWindow():
     def Exit(self):
         self.LogFile.close()
         exit()
-        
+
 
     #Pop Up Boxes
     def error(self):
@@ -110,8 +105,7 @@ class MainWindow():
         self.ui.stackedWidget.setCurrentWidget(self.ui.Home)
     def LoginPageSelect(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.LoginPage)
-    def SignUpPageSelect(self):
-        self.ui.stackedWidget.setCurrentWidget(self.ui.SignUpPage)
+
 
     #Login Page Functions
     def Login(self):
@@ -344,4 +338,30 @@ class MainWindow():
         else:
             QMessageBox.close
 
+    #Clinician Functions
+    def SearchByIDClinician(self):
+        Name = self.ds.MatchingClinicianName(self.ui.LoginPage_PinEnter.text())
+        ID = self.ui.ClinicianIDSearchInput.text()
+        IDs = self.ds.SearchAllClinicianID()
+        if ID not in IDs:
+            self.error()
+        else:
+            ClinicianData = self.ds.SelectMatchingClinician(int(self.ui.ClinicianIDSearchInput.text()))
+            for i in ClinicianData:
+                self.ui.ClinicianFirstNameEdit.setText(i[1])
+                self.ui.ClinicianLastNameEdit.setText(i[2])
+                self.ui.ClinicianLoginPinEdit.setText(str(i[3]))
+                self.ui.ClinicianRoleEdit.setText(i[4])
+                self.ui.ClinicianDepartmentEdit.setText(str(i[5]))
+                self.ui.ClinicianIDEdit.setText(str(i[0]))
+                self.ui.ClinicianServicesEdit.setText(i[6])
+                if i[7] == "":
+                    self.ui.PhotoLabelClinician.setText("Photo Cannot Be Found for this Patient")
+                else:
+                    self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{i[6]}"))
+            if self.ui.ClinicianIDSpinBox.value() != self.ui.ClinicianIDEdit.text():
+                self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))
+            FirstName = self.ui.ClinicianFirstNameEdit.text()
+            LastName = self.ui.ClinicianLastNameEdit.text()
+            self.LogFile.write(f"\n{Name}, has searched for {FirstName} {LastName}, By Searching for their ID, at {self.currentdate}, Succsesfully")
 
