@@ -155,3 +155,59 @@ class DataStore:
         )
         List = self.cursor.fetchall()
         return List
+    
+    def MatchingClinicianRole(self, MatchingRole):
+        self.cursor.execute(
+            """
+                SELECT * FROM Clinicians
+                WHERE Role LIKE :MatchingRole
+            """,
+            {"MatchingRole": MatchingRole}
+        )
+        List = self.cursor.fetchall()
+        return List
+    
+    def SearchAllRoles(self):
+        self.cursor.execute(
+            """
+                SELECT Role FROM Clinicians
+            """
+        )
+        list = self.cursor.fetchall()
+        Role = ""
+        for i in list:
+            Role += "{}".format(i)
+        return Role
+    
+    def SearchAllDepartments(self):
+        self.cursor.execute(
+            """
+                SELECT Department FROM Clinicians
+            """
+        )
+        list = self.cursor.fetchall()
+        Dep = ""
+        for i in list:
+            Dep += "{}".format(i)
+        return Dep
+    
+    def MatchingClinicianDepartment(self, MatchingDepartment):
+        self.cursor.execute(
+            """
+                SELECT * FROM Clinicians
+                WHERE Department LIKE :MatchingDepartment
+            """,
+            {"MatchingDepartment": MatchingDepartment}
+        )
+        List = self.cursor.fetchall()
+        return List
+    
+    def DeleteClinician(self, ClinicianID):
+        self.cursor.execute(
+            """
+                DELETE FROM Clinicians
+                WHERE ID LIKE :ClinicianID
+            """,
+            {"ClinicianID": ClinicianID}
+        )
+        self.db.commit()

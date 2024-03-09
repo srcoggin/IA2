@@ -48,6 +48,11 @@ class MainWindow():
         self.ui.ClinicianHomePageButton.clicked.connect(self.HomePageSelect)
         self.ui.ExitButtonClinicianPage.clicked.connect(self.Exit)
         self.ui.ClinicianIDSearchButton.clicked.connect(self.SearchByIDClinician)
+        self.ui.ClinicianIDSpinBox.valueChanged.connect(self.ClinicianSpinBoxSelected)
+        self.ui.ClinicianRoleSearchButton.clicked.connect(self.SearchClinicianByRole)
+        self.ui.ClinicianSearchByDepartmentButton.clicked.connect(self.SearchClinicianByDepartment)
+        self.ui.DeleteClinicianButton.clicked.connect(self.DeleteClinicianData)
+
 
 
     #Shows the user interface
@@ -55,7 +60,12 @@ class MainWindow():
         self.main_win.show()
     #Exits the program
     def Exit(self):
-        self.LogFile.close()
+        Name = self.ds.MatchingClinicianName(self.ui.LoginPage_PinEnter.text())
+        if self.ui.LoginPage_PinEnter.text() == "":
+            pass
+        else:
+            self.LogFile.write(f"\n{Name}, Logged out of the app, at {self.currentdate}, Succsesfully")
+            self.LogFile.close()
         exit()
 
 
@@ -71,6 +81,13 @@ class MainWindow():
         msg = QMessageBox()
         msg.setWindowTitle("Operation Closed!")
         msg.setText("Operation was not completed.")
+        msg.setStandardButtons(QMessageBox.Close)
+        msg.exec()
+
+    def MoreThanTwoOfThem(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("Operation Closed!")
+        msg.setText("Sorry Dude, theres two or more entries that match this searching condition, and Will is too lazy to code a pop up box where you select which one you'd want to see. so ig you'll just have to try another search method. whoops.")
         msg.setStandardButtons(QMessageBox.Close)
         msg.exec()
 
@@ -365,3 +382,139 @@ class MainWindow():
             LastName = self.ui.ClinicianLastNameEdit.text()
             self.LogFile.write(f"\n{Name}, has searched for {FirstName} {LastName}, By Searching for their ID, at {self.currentdate}, Succsesfully")
 
+    def ClinicianSpinBoxSelected(self):
+        Name = self.ds.MatchingClinicianName(self.ui.LoginPage_PinEnter.text())
+        if self.ui.ClinicianIDSpinBox.value() == 0:
+            pass
+        else:
+            if self.ui.ClinicianIDSpinBox.value() != self.ui.ClinicianIDEdit.text():
+                ID = str(self.ui.ClinicianIDSpinBox.value())
+                IDs = self.ds.SearchAllClinicianID()
+                if ID not in IDs:
+                    self.error()
+                    if self.ui.ClinicianIDEdit.text() == "":
+                        self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDSpinBox.value()) -1)
+                    else:
+                        self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))
+                else:
+                    ClinicianData = self.ds.SelectMatchingClinician(self.ui.ClinicianIDSpinBox.value())
+                    for i in ClinicianData:
+                        self.ui.ClinicianFirstNameEdit.setText(i[1])
+                        self.ui.ClinicianLastNameEdit.setText(i[2])
+                        self.ui.ClinicianLoginPinEdit.setText(str(i[3]))
+                        self.ui.ClinicianRoleEdit.setText(i[4])
+                        self.ui.ClinicianDepartmentEdit.setText(str(i[5]))
+                        self.ui.ClinicianIDEdit.setText(str(i[0]))
+                        self.ui.ClinicianServicesEdit.setText(i[6])
+                        if i[7] == "":
+                            self.ui.PhotoLabelClinician.setText("Photo Cannot Be Found for this Patient")
+                        else:
+                            self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{i[6]}"))
+            else:
+                print("its broke")
+            FirstName = self.ui.ClinicianFirstNameEdit.text()
+            LastName = self.ui.ClinicianLastNameEdit.text()
+            self.LogFile.write(f"\n{Name}, has searched for {FirstName} {LastName}, By Scrolling through the SpinBox, at {self.currentdate}, Succsesfully")
+
+    def SearchClinicianByRole(self):
+        name = self.ds.MatchingClinicianName(self.ui.LoginPage_PinEnter.text())
+        ClinicianRole = self.ui.ClinicianRoleSearchInput.text()
+        AllRoles = self.ds.SearchAllRoles()
+        if ClinicianRole not in AllRoles:
+            self.error()
+        else:
+            Numb = 0
+            for i in range(1):
+                if ClinicianRole in AllRoles:
+                    NumbOfMatches = AllRoles.count(ClinicianRole)
+                    if NumbOfMatches > 1:
+                        self.MoreThanTwoOfThem()
+                    else:
+                        ClinicianData = self.ds.MatchingClinicianRole(ClinicianRole)
+                        for i in ClinicianData:
+                            self.ui.ClinicianFirstNameEdit.setText(i[1])
+                            self.ui.ClinicianLastNameEdit.setText(i[2])
+                            self.ui.ClinicianLoginPinEdit.setText(str(i[3]))
+                            self.ui.ClinicianRoleEdit.setText(i[4])
+                            self.ui.ClinicianDepartmentEdit.setText(str(i[5]))
+                            self.ui.ClinicianIDEdit.setText(str(i[0]))
+                            self.ui.ClinicianServicesEdit.setText(i[6])
+                            if i[7] == "":
+                                self.ui.PhotoLabelClinician.setText("Photo Cannot Be Found for this Clinician")
+                            else:
+                                self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{i[6]}"))
+                            if self.ui.ClinicianIDSpinBox.value() != self.ui.ClinicianIDEdit.text():
+                                self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))
+                            FirstName = self.ui.ClinicianFirstNameEdit.text()
+                            LastName = self.ui.ClinicianLastNameEdit.text()
+                            self.LogFile.write(f"\n{name}, has searched for {FirstName} {LastName}, By Searching for their Role, at {self.currentdate}, Succsesfully")
+
+    def SearchClinicianByDepartment(self):
+        name = self.ds.MatchingClinicianName(self.ui.LoginPage_PinEnter.text())
+        ClinicianDepartment = self.ui.ClinicianSearchByDepartmentInput.text()
+        AllDepartments = self.ds.SearchAllDepartments()
+        if ClinicianDepartment not in AllDepartments:
+            self.error()
+        else:
+            Numb = 0
+            for i in range(1):
+                if ClinicianDepartment in AllDepartments:
+                    NumbOfMatches = AllDepartments.count(ClinicianDepartment)
+                    if NumbOfMatches > 1:
+                        self.MoreThanTwoOfThem()
+                    else:
+                        ClinicianData = self.ds.MatchingClinicianDepartment(ClinicianDepartment)
+                        for i in ClinicianData:
+                            self.ui.ClinicianFirstNameEdit.setText(i[1])
+                            self.ui.ClinicianLastNameEdit.setText(i[2])
+                            self.ui.ClinicianLoginPinEdit.setText(str(i[3]))
+                            self.ui.ClinicianRoleEdit.setText(i[4])
+                            self.ui.ClinicianDepartmentEdit.setText(str(i[5]))
+                            self.ui.ClinicianIDEdit.setText(str(i[0]))
+                            self.ui.ClinicianServicesEdit.setText(i[6])
+                            if i[7] == "":
+                                self.ui.PhotoLabelClinician.setText("Photo Cannot Be Found for this Clinician")
+                            else:
+                                self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{i[6]}"))
+                            if self.ui.ClinicianIDSpinBox.value() != self.ui.ClinicianIDEdit.text():
+                                self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))
+                            FirstName = self.ui.ClinicianFirstNameEdit.text()
+                            LastName = self.ui.ClinicianLastNameEdit.text()
+                            self.LogFile.write(f"\n{name}, has searched for {FirstName} {LastName}, By Searching for their Department, at {self.currentdate}, Succsesfully")
+
+    def DeleteClinicianData(self):
+        msg = QMessageBox()
+        Name = self.ds.MatchingClinicianName(self.ui.LoginPage_PinEnter.text())
+        ClinicianID = self.ui.DeleteClinicianIDInput.text()
+        MatchingID = self.ds.SearchAllClinicianID()
+        if ClinicianID not in MatchingID:
+            self.error()
+        else:
+            msg.setText("Are you sure you want to do this?")
+            msg.setWindowTitle("Are you sure!")
+            msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+            button_clicked = msg.exec()
+            if button_clicked == QMessageBox.Yes:
+                ClinicianData = self.ds.SelectMatchingClinician(self.ui.DeleteClinicianIDInput.text())
+                for i in ClinicianData:
+                    self.ui.ClinicianFirstNameEdit.setText(i[1])
+                    self.ui.ClinicianLastNameEdit.setText(i[2])
+                FirstName = self.ui.ClinicianFirstNameEdit.text()
+                LastName = self.ui.ClinicianLastNameEdit.text()
+                self.LogFile.write(f"\n{Name}, has Deleted {FirstName} {LastName} from the Data Base, using their ID, at {self.currentdate}, Succsesfully")
+                Access = self.ClinicianLoginPinPopUpBox(False)
+                if Access == True:
+                    self.ds.DeleteClinician(ClinicianID)
+                else:
+                    self.OperationUnsuccessful()
+            else:
+                QMessageBox.close
+                self.OperationUnsuccessful()
+        self.ui.ClinicianFirstNameEdit.clear()
+        self.ui.ClinicianLastNameEdit.clear()
+        self.ui.ClinicianRoleEdit.clear()
+        self.ui.ClinicianServicesEdit.clear()
+        self.ui.ClinicianLoginPinEdit.clear()
+        self.ui.ClinicianDepartmentEdit.clear()
+        self.ui.ClinicianIDEdit.clear()
+        self.ui.ClinicianIDSpinBox.setValue(0)
