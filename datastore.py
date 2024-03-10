@@ -118,10 +118,24 @@ class DataStore:
                 Pins += "{}".format(i)
         return Pins
     
-    def MatchingClinicianName(self, loginpin):
+    def MatchingClinicianFirstName(self, loginpin):
         self.cursor.execute(
             """
                 SELECT FirstName FROM Clinicians
+                WHERE LoginPin LIKE :loginpin
+            """,
+            {'loginpin': loginpin}
+        )
+        List = self.cursor.fetchall()
+        Pin = ""
+        for i in List:
+                Pin += "{}".format(i[0])
+        return Pin
+    
+    def MatchingClinicianLastName(self, loginpin):
+        self.cursor.execute(
+            """
+                SELECT LastName FROM Clinicians
                 WHERE LoginPin LIKE :loginpin
             """,
             {'loginpin': loginpin}
@@ -209,5 +223,15 @@ class DataStore:
                 WHERE ID LIKE :ClinicianID
             """,
             {"ClinicianID": ClinicianID}
+        )
+        self.db.commit()
+
+    def UpdateClinicianDetails(self, FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services):
+        self.cursor.execute(
+            """
+                REPLACE INTO Clinicians (ID, FirstName, Lastname, Department, Role, LoginPin, ServicesProvided)
+                VALUES (:ID, :FirstName, :LastName, :Department, :Role, :LoginPin, :Services)
+            """,
+            {"ID": ClinicianID, "FirstName": FirstName, "LastName": LastName, "Department": Department, "Role": Role, "LoginPin": LoginPin, "Services": Services}
         )
         self.db.commit()
