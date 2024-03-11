@@ -5,7 +5,8 @@ from PyQt5 import QtGui
 import datetime
 from PyQt5.QtWidgets import *
 import os
-
+from PyQt5.QtCore import QDateTime
+import datetime
 
 
 
@@ -164,6 +165,9 @@ class MainWindow():
                 self.ui.PatientID_edit.setText(str(i[0]))
                 self.ui.PatientHeight_Edit.setText(str(i[3]))
                 self.ui.PatientWeight_Edit.setText(str(i[4]))
+                self.ui.PatientDateOfBirthEdit.setText(i[7])
+                list = i[7].split('/')
+                self.ui.PatientDateOfBirthDateEdit.setDateTime(QDateTime(datetime.datetime(int(list[2]), int(list[1]), int(list[0]))))
                 if i[6] == "":
                     self.ui.PhotoLabel.setText("Photo Cannot Be Found for this Patient")
                 else:
@@ -198,6 +202,8 @@ class MainWindow():
                         self.ui.PatientID_edit.setText(str(i[0]))
                         self.ui.PatientHeight_Edit.setText(str(i[3]))
                         self.ui.PatientWeight_Edit.setText(str(i[4]))
+                        list = i[7].split('/')
+                        self.ui.PatientDateOfBirthDateEdit.setDateTime(QDateTime(datetime.datetime(int(list[2]), int(list[1]), int(list[0]))))
                         if i[6] == "":
                             self.ui.PhotoLabel.setText("Photo Cannot Be Found for this Patient")
                         else:
@@ -236,6 +242,8 @@ class MainWindow():
                     self.ui.PatientID_edit.setText(str(i[0]))
                     self.ui.PatientHeight_Edit.setText(str(i[3]))
                     self.ui.PatientWeight_Edit.setText(str(i[4]))
+                    list = i[7].split('/')
+                    self.ui.PatientDateOfBirthDateEdit.setDateTime(QDateTime(datetime.datetime(int(list[2]), int(list[1]), int(list[0]))))
                     if i[6] == "":
                         self.ui.PhotoLabel.setText("Photo Cannot Be Found for this Patient")
                     else:
@@ -298,6 +306,7 @@ class MainWindow():
         Weight = self.ui.PatientWeight_Edit.text()
         Height = self.ui.PatientHeight_Edit.text()
         MatchingID = self.ds.SearchAllPatientID()
+        DateOfBirth = self.ui.PatientDateOfBirthDateEdit.text()
         msg = QMessageBox()
         msg.setText("Are you sure you want to do this?")
         msg.setWindowTitle("Are you sure!")
@@ -314,7 +323,7 @@ class MainWindow():
                     Access = self.ClinicianLoginPinPopUpBox(False)
                     if Access == True:
                         self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Edited {FirstName} {LastName}'s Data, at {self.currentdate}, Succsesfully")
-                        self.ds.UpdateDetails(FirstName, LastName, Address, PatientID, Weight, Height)
+                        self.ds.UpdateDetails(FirstName, LastName, Address, PatientID, Weight, Height, DateOfBirth)
                         self.ds.DeletePatient(self.ui.PatientIDSpinBox.text())
                     else:
                         self.OperationUnsuccessful()
@@ -327,7 +336,7 @@ class MainWindow():
             else:
                 Access = self.ClinicianLoginPinPopUpBox(False)
                 if Access == True:
-                    self.ds.UpdateDetails(FirstName, LastName, Address, PatientID, Weight, Height)
+                    self.ds.UpdateDetails(FirstName, LastName, Address, PatientID, Weight, Height, DateOfBirth)
                     self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Edited {FirstName} {LastName}'s Data, at {self.currentdate}, Succsesfully")
                 else:
                     self.OperationUnsuccessful()

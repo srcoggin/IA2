@@ -23,6 +23,18 @@ class DataStore:
         for i in List:
             id += "{}".format(i)
         return id
+    
+    def SearchAllDOBS(self):
+        self.cursor.execute(
+         """
+                SELECT ID FROM Patients
+            """
+        )
+        List = self.cursor.fetchall()
+        id = ""
+        for i in List:
+            id += "{}".format(i)
+        return id
 
     def SelectMatchingPatient(self, patientid):
         self.cursor.execute(
@@ -31,6 +43,17 @@ class DataStore:
                 WHERE ID LIKE :patientid
             """,
             {'patientid': patientid}
+        )
+        List = self.cursor.fetchall()
+        return List
+    
+    def SelectMatchingPatientDateOfBirth(self, dob):
+        self.cursor.execute(
+            """
+                SELECT * FROM Patients
+                WHERE DateOfBirth LIKE :dob
+            """,
+            {'dob': dob}
         )
         List = self.cursor.fetchall()
         return List
