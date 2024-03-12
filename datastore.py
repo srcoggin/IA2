@@ -95,13 +95,13 @@ class DataStore:
                 id += "{}".format(i)
         return id
     
-    def UpdateDetails(self, FirstName, LastName, Address, PatientID, Weight, Height):
+    def UpdateDetails(self, FirstName, LastName, Address, PatientID, Weight, Height, DateOfBirth):
         self.cursor.execute(
             """
-                REPLACE INTO Patients (ID, FirstName, Lastname, Address, Weight, Height)
-                VALUES (:ID, :FirstName, :LastName, :Address, :Weight, :Height)
+                REPLACE INTO Patients (ID, FirstName, Lastname, Address, Weight, Height, DateOfBirth)
+                VALUES (:ID, :FirstName, :LastName, :Address, :Weight, :Height, :DateOfBirth)
             """,
-            {"ID": PatientID, "FirstName": FirstName, "LastName": LastName, "Address": Address, "Weight": Weight, "Height": Height}
+            {"ID": PatientID, "FirstName": FirstName, "LastName": LastName, "Address": Address, "Weight": Weight, "Height": Height, "DateOfBirth": DateOfBirth}
         )
         self.db.commit()
     
@@ -115,13 +115,13 @@ class DataStore:
         )
         self.db.commit()
 
-    def NewPatientDS(self, FirstName, LastName, PatientID, Weight, Height, Address):
+    def NewPatientDS(self, FirstName, LastName, PatientID, Weight, Height, Address, DateOfBirth):
         self.cursor.execute(
             """
-                INSERT INTO Patients (ID, FirstName, Lastname, Weight, Height, Address)
-                VALUES (:PatientID, :FirstName, :LastName, :Weight, :Height, :Address)
+                INSERT INTO Patients (ID, FirstName, Lastname, Weight, Height, Address, DateOfBirth)
+                VALUES (:PatientID, :FirstName, :LastName, :Weight, :Height, :Address, :DateOfBirth)
             """,
-            {"PatientID": PatientID, "FirstName": FirstName, "LastName": LastName, "Weight": Weight, "Height": Height, "Address": Address}
+            {"PatientID": PatientID, "FirstName": FirstName, "LastName": LastName, "Weight": Weight, "Height": Height, "Address": Address, "DateOfBirth": DateOfBirth}
         )
         self.db.commit()
     
@@ -253,6 +253,17 @@ class DataStore:
         self.cursor.execute(
             """
                 REPLACE INTO Clinicians (ID, FirstName, Lastname, Department, Role, LoginPin, ServicesProvided)
+                VALUES (:ID, :FirstName, :LastName, :Department, :Role, :LoginPin, :Services)
+            """,
+            {"ID": ClinicianID, "FirstName": FirstName, "LastName": LastName, "Department": Department, "Role": Role, "LoginPin": LoginPin, "Services": Services}
+        )
+        self.db.commit()
+
+
+    def NewClinicianDS(self, FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services):
+        self.cursor.execute(
+            """
+                INSERT INTO Clinicians (ID, FirstName, Lastname, Department, Role, LoginPin, ServicesProvided)
                 VALUES (:ID, :FirstName, :LastName, :Department, :Role, :LoginPin, :Services)
             """,
             {"ID": ClinicianID, "FirstName": FirstName, "LastName": LastName, "Department": Department, "Role": Role, "LoginPin": LoginPin, "Services": Services}

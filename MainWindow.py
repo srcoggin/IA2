@@ -55,6 +55,14 @@ class MainWindow():
         self.ui.ClinicianSearchByDepartmentButton.clicked.connect(self.SearchClinicianByDepartment)
         self.ui.DeleteClinicianButton.clicked.connect(self.DeleteClinicianData)
         self.ui.ClinicianDataEditButton.clicked.connect(self.EditClinicianData)
+        self.ui.AddNewClinicianButton.clicked.connect(self.AddNewClinician)
+
+        #Appointmenet Page Buttons
+        self.ui.HomePageAppointmentButton.clicked.connect(self.HomePageSelect)
+        self.ui.PatientsPageAppointmentButton.clicked.connect(self.PatientsPageSelect)
+        self.ui.CliniciansPageAppointmentButton.clicked.connect(self.ClinicianPageSelect)
+        self.ui.ExitButtonAppointmentPage.clicked.connect(self.Exit)
+
 
 
 
@@ -202,6 +210,7 @@ class MainWindow():
                         self.ui.PatientID_edit.setText(str(i[0]))
                         self.ui.PatientHeight_Edit.setText(str(i[3]))
                         self.ui.PatientWeight_Edit.setText(str(i[4]))
+                        self.ui.PatientDateOfBirthEdit.setText(i[7])
                         list = i[7].split('/')
                         self.ui.PatientDateOfBirthDateEdit.setDateTime(QDateTime(datetime.datetime(int(list[2]), int(list[1]), int(list[0]))))
                         if i[6] == "":
@@ -242,6 +251,7 @@ class MainWindow():
                     self.ui.PatientID_edit.setText(str(i[0]))
                     self.ui.PatientHeight_Edit.setText(str(i[3]))
                     self.ui.PatientWeight_Edit.setText(str(i[4]))
+                    self.ui.PatientDateOfBirthEdit.setText(i[7])
                     list = i[7].split('/')
                     self.ui.PatientDateOfBirthDateEdit.setDateTime(QDateTime(datetime.datetime(int(list[2]), int(list[1]), int(list[0]))))
                     if i[6] == "":
@@ -336,8 +346,15 @@ class MainWindow():
             else:
                 Access = self.ClinicianLoginPinPopUpBox(False)
                 if Access == True:
-                    self.ds.UpdateDetails(FirstName, LastName, Address, PatientID, Weight, Height, DateOfBirth)
-                    self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Edited {FirstName} {LastName}'s Data, at {self.currentdate}, Succsesfully")
+                    try:
+                        self.ds.UpdateDetails(FirstName, LastName, Address, PatientID, Weight, Height, DateOfBirth)
+                        self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Edited {FirstName} {LastName}'s Data, at {self.currentdate}, Succsesfully")
+                    except:
+                        msg = QMessageBox()
+                        msg.setText("The Data provided contains Null info")
+                        msg.setWindowTitle("This Can't Be Done!")
+                        msg.setStandardButtons(QMessageBox.Close)
+                        msg.exec()
                 else:
                     self.OperationUnsuccessful()
         elif button_clicked == QMessageBox.No:
@@ -355,6 +372,7 @@ class MainWindow():
         Weight = self.ui.PatientWeight_Edit.text()
         Height = self.ui.PatientHeight_Edit.text()
         MatchingID = self.ds.SearchAllPatientID()
+        DateOfBirth = self.ui.PatientDateOfBirthEdit.text()
         msg = QMessageBox()
         msg.setText("Are you sure you want to do this?")
         msg.setWindowTitle("Are you sure!")
@@ -367,8 +385,15 @@ class MainWindow():
                 else:
                     Access = self.ClinicianLoginPinPopUpBox(False)
                     if Access == True:
-                        self.ds.NewPatientDS(FirstName, LastName, PatientID, Weight, Height, Address)
-                        self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Added a new Patient, {FirstName} {LastName}, at {self.currentdate}, Succsesfully")
+                        try:
+                            self.ds.NewPatientDS(FirstName, LastName, PatientID, Weight, Height, Address, DateOfBirth)
+                            self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Added a new Patient, {FirstName} {LastName}, at {self.currentdate}, Succsesfully")
+                        except:
+                            msg = QMessageBox()
+                            msg.setText("The Data provided contains Null info")
+                            msg.setWindowTitle("This Can't Be Done!")
+                            msg.setStandardButtons(QMessageBox.Close)
+                            msg.exec()
                     else:
                         self.OperationUnsuccessful()
         elif button_clicked == QMessageBox.No:
@@ -416,9 +441,21 @@ class MainWindow():
                 if ID not in IDs:
                     self.error()
                     if self.ui.ClinicianIDEdit.text() == "":
-                        self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDSpinBox.value()) -1)
+                        x = self.ui.ClinicianIDSpinBox.value()
+                        y = int(self.ui.ClinicianIDEdit.text())
+                        dif = x - y 
+                        self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDSpinBox.value()) -dif)
                     else:
-                        self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))
+                        x = self.ui.ClinicianIDSpinBox.value()
+                        y = int(self.ui.ClinicianIDEdit.text())
+                        dif = x - y 
+                        self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDSpinBox.value()) -dif)
+                        if self.ui.ClinicianIDSpinBox.value() != int(self.ui.ClinicianIDEdit.text()):
+                            x = self.ui.ClinicianIDSpinBox.value()
+                            y = int(self.ui.ClinicianIDEdit.text())
+                            dif = x - y
+                            self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDSpinBox.value()) - dif)
+
                 else:
                     ClinicianData = self.ds.SelectMatchingClinician(self.ui.ClinicianIDSpinBox.value())
                     for i in ClinicianData:
@@ -437,19 +474,9 @@ class MainWindow():
                 print("its broke")
             FirstName = self.ui.ClinicianFirstNameEdit.text()
             LastName = self.ui.ClinicianLastNameEdit.text()
-            with open("Log.txt", "rb") as file:
-                try:
-                    file.seek(-2, os.SEEK_END)
-                    while file.read(1) != b'\n':
-                        file.seek(-2, os.SEEK_CUR)
-                except OSError:
-                    file.seek(0)
-                last_line = file.readline().decode()
-            print(last_line)
-            if self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has searched for {FirstName} {LastName}, By Scrolling through the SpinBox, at {self.currentdate}, Succsesfully") != str(last_line):
-                self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has searched for {FirstName} {LastName}, By Scrolling through the SpinBox, at {self.currentdate}, Succsesfully")
-            else:
-                pass
+            self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has searched for {FirstName} {LastName}, By Scrolling through the SpinBox, at {self.currentdate}, Succsesfully")
+    
+    
     def SearchClinicianByRole(self):
         ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
         ClinLastName = self.ds.MatchingClinicianLastName(self.ui.LoginPage_PinEnter.text())
@@ -582,10 +609,17 @@ class MainWindow():
                 if button_clicked == QMessageBox.Yes:
                     Access = self.ClinicianLoginPinPopUpBox(False)
                     if Access == True:
-                        self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Edited {FirstName} {LastName}'s Data, at {self.currentdate}, Succsesfully")
-                        self.ds.UpdateClinicianDetails(FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services)
-                        self.ds.DeleteClinician(self.ui.ClinicianIDSpinBox.text())
-                        self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))
+                        try:
+                            self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Edited {FirstName} {LastName}'s Data, at {self.currentdate}, Succsesfully")
+                            self.ds.UpdateClinicianDetails(FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services)
+                            self.ds.DeleteClinician(self.ui.ClinicianIDSpinBox.text())
+                            self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))
+                        except:
+                            msg = QMessageBox()
+                            msg.setText("The Data provided contains Null info")
+                            msg.setWindowTitle("This Can't Be Done!")
+                            msg.setStandardButtons(QMessageBox.Close)
+                            msg.exec()
                     else:
                         self.OperationUnsuccessful()
                 elif button_clicked == QMessageBox.No:
@@ -602,6 +636,45 @@ class MainWindow():
                     self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))
                 else:
                     self.OperationUnsuccessful()
+        elif button_clicked == QMessageBox.No:
+            QMessageBox.close
+        else:
+            QMessageBox.close
+
+    def AddNewClinician(self):
+        ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
+        ClinLastName = self.ds.MatchingClinicianLastName(self.ui.LoginPage_PinEnter.text())
+        FirstName = self.ui.ClinicianFirstNameEdit.text()
+        LastName = self.ui.ClinicianLastNameEdit.text()
+        ClinicianID = self.ui.ClinicianIDEdit.text()
+        Role = self.ui.ClinicianRoleEdit.text()
+        Department = self.ui.ClinicianDepartmentEdit.text()
+        LoginPin = self.ui.ClinicianLoginPinEdit.text()
+        Services = self.ui.ClinicianServicesEdit.text()
+        MatchingID = self.ds.SearchAllClinicianID()
+        msg = QMessageBox()
+        msg.setText("Are you sure you want to do this?")
+        msg.setWindowTitle("Are you sure!")
+        msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+        button_clicked = msg.exec()
+        if button_clicked == QMessageBox.Yes:
+                if ClinicianID in MatchingID:
+                    msg.setText("A Clinician Already exists under this ID...")
+                    msg.setWindowTitle("Operation Failed!")
+                else:
+                    Access = self.ClinicianLoginPinPopUpBox(False)
+                    if Access == True:
+                        try:
+                            self.ds.NewClinicianDS(FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services)
+                            self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Added a new Patient, {FirstName} {LastName}, at {self.currentdate}, Succsesfully")
+                        except:
+                            msg = QMessageBox()
+                            msg.setText("The Data provided either contains Null info, or the Login-Pin is not unique")
+                            msg.setWindowTitle("This Can't Be Done!")
+                            msg.setStandardButtons(QMessageBox.Close)
+                            msg.exec()
+                    else:
+                        self.OperationUnsuccessful()
         elif button_clicked == QMessageBox.No:
             QMessageBox.close
         else:
