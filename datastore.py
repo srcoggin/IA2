@@ -269,3 +269,27 @@ class DataStore:
             {"ID": ClinicianID, "FirstName": FirstName, "LastName": LastName, "Department": Department, "Role": Role, "LoginPin": LoginPin, "Services": Services}
         )
         self.db.commit()
+
+    #Appointment Functions
+    def SearchAllAppointmentID(self):
+            self.cursor.execute(
+            """
+                    SELECT ID FROM Appointments
+                """
+            )
+            List = self.cursor.fetchall()
+            id = ""
+            for i in List:
+                id += "{}".format(i)
+            return id
+
+    def SelectMatchingAppointment(self, appointmentid):
+            self.cursor.execute(
+                """
+                    SELECT * FROM Appointments
+                    WHERE ID LIKE :appointmentid
+                """,
+                {'appointmentid': appointmentid}
+            )
+            List = self.cursor.fetchall()
+            return List
