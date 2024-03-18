@@ -95,6 +95,38 @@ class DataStore:
                 id += "{}".format(i)
         return id
     
+    def SearchForPatientByDateOfBirth(self, DOB):
+        self.cursor.execute(
+            """
+                SELECT * FROM Patients
+                WHERE DateOfBirth LIKE :DOB
+            """,
+            {"DOB": DOB}
+        )
+        List = self.cursor.fetchall()
+        Date = ""
+        for i in List:
+                Date += "{}".format(i)
+        return Date
+    
+    def EditPhotoPatient(self, filepath, patientID):
+        self.cursor.execute(
+            """
+                UPDATE Patients SET Photo = :Photo WHERE ID LIKE :patientID
+            """,
+            {"Photo": filepath, "patientID": patientID}
+        )
+        self.db.commit()
+
+    def EditPhotoPatient(self, filepath, clinicianID):
+        self.cursor.execute(
+            """
+                UPDATE Clinicians SET Photo = :Photo WHERE ID LIKE :clinicianID
+            """,
+            {"Photo": filepath, "clinicianID": clinicianID}
+        )
+        self.db.commit()
+
     def UpdateDetails(self, FirstName, LastName, Address, PatientID, Weight, Height, DateOfBirth):
         self.cursor.execute(
             """

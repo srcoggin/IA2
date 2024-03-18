@@ -4,10 +4,13 @@ from PyQt5 import QtGui
 import datetime
 from PyQt5.QtWidgets import *
 import datetime
-
+from UserInterface import Ui_Form
+from datastore import DataStore
+from tkinter import *
+from tkinter import filedialog
 
 class Clinicians():
-    def __init__(self, datastore, UI, MW, Log):
+    def __init__(self, datastore: DataStore, UI: Ui_Form, MW, Log):
         self.LineEdit = QLineEdit()
         self.currentdate = datetime.datetime.now()
         self.main_win = QMainWindow()
@@ -300,3 +303,12 @@ class Clinicians():
             QMessageBox.close
         else:
             QMessageBox.close
+
+    def ChangeClinicianPhoto(self):
+        try:
+            filepathforphoto = filedialog.askopenfilename(initialdir="C:", title="Please Choose A Photo", filetypes=(("jpg files", "*.jpg"),("png file", "*.png")))
+            self.ds.EditPhotoClinician(str(filepathforphoto), self.ui.PatientID_edit.text())
+            print(filepathforphoto)
+            self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{filepathforphoto}"))
+        except:
+            self.mw.error()

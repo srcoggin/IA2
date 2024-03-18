@@ -46,6 +46,9 @@ class MainWindow():
         self.ui.PatientEditData_Button.clicked.connect(self.PP.EditPatientData)
         self.ui.DeletePatientButton.clicked.connect(self.PP.DeletePatientData)
         self.ui.PatientAddDataButton.clicked.connect(self.PP.AddNewPatient)
+        self.ui.PatientDateOfBirthEdit.textChanged.connect(self.PP.ChangeDateTimeToLineEdit)
+        self.ui.PatientDateOfBirthDateEdit.dateTimeChanged.connect(self.PP.LineEditToChangeDate)
+        self.ui.PatientEditPhoto_Button.clicked.connect(self.PP.ChangePatientPhoto)
 
         #Clinician Page Buttons
         self.ui.ClinicianAppointmentButton.clicked.connect(self.AppointmentPageSelect)
@@ -59,6 +62,7 @@ class MainWindow():
         self.ui.DeleteClinicianButton.clicked.connect(self.CP.DeleteClinicianData)
         self.ui.ClinicianDataEditButton.clicked.connect(self.CP.EditClinicianData)
         self.ui.AddNewClinicianButton.clicked.connect(self.CP.AddNewClinician)
+        self.ui.ClinicianPhotoEditButton.clicked.connect(self.CP.ChangeClinicianPhoto)
 
         #Appointmenet Page Buttons
         self.ui.HomePageAppointmentButton.clicked.connect(self.HomePageSelect)
@@ -66,6 +70,9 @@ class MainWindow():
         self.ui.CliniciansPageAppointmentButton.clicked.connect(self.ClinicianPageSelect)
         self.ui.ExitButtonAppointmentPage.clicked.connect(self.Exit)
         self.ui.SearchByAppointmentIDButton.clicked.connect(self.AP.SearchAppointmentsByID)
+        self.ui.AppointmentIDSpinbox.valueChanged.connect(self.AP.AppointmentSpinBoxSelected)
+        self.ui.AppointmentDateEdit.textChanged.connect(self.AP.ChangeDateTimeToLineEdit)
+        self.ui.AppointmentDateEdit_2.dateTimeChanged.connect(self.AP.LineEditToChangeDate)
 
 
 

@@ -5,10 +5,13 @@ import datetime
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import QDateTime
 import datetime
-
+from UserInterface import Ui_Form
+from datastore import DataStore
+from tkinter import *
+from tkinter import filedialog
 
 class Patients():
-    def __init__(self, datastore, UI, MW, Log):
+    def __init__(self, datastore: DataStore, UI: Ui_Form, MW, Log):
         self.LineEdit = QLineEdit()
         self.currentdate = datetime.datetime.now()
         self.main_win = QMainWindow()
@@ -47,6 +50,16 @@ class Patients():
             FirstName = self.ui.PatientFirstName_Edit.text()
             LastName = self.ui.PatientLastName_edit.text()
             self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has searched for {FirstName} {LastName}, By Searching for their ID, at {self.currentdate}, Succsesfully")
+
+    def ChangePatientPhoto(self):
+        try:
+            filepathforphoto = filedialog.askopenfilename(initialdir="C:", title="Please Choose A Photo", filetypes=(("jpg files", "*.jpg"),("png file", "*.png")))
+            self.ds.EditPhotoPatient(str(filepathforphoto), self.ui.PatientID_edit.text())
+            print(filepathforphoto)
+            self.ui.PhotoLabel.setPixmap(QtGui.QPixmap(f"{filepathforphoto}"))
+        except:
+            self.mw.error()
+
 
     def PatientSpinBoxSelected(self):
         ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
@@ -266,3 +279,18 @@ class Patients():
             QMessageBox.close
         else:
             QMessageBox.close
+
+    def ChangeDateTimeToLineEdit(self):
+        try:
+            LineEdit = self.ui.PatientDateOfBirthEdit.text().split('/')
+            self.ui.PatientDateOfBirthDateEdit.setDateTime(QDateTime(datetime.datetime(int(LineEdit[2]), int(LineEdit[1]), int(LineEdit[0]))))
+        except:
+            print("No Can Do!!")
+    
+    def LineEditToChangeDate(self):
+        try:
+            DateEdit = str(self.ui.PatientDateOfBirthDateEdit.text())
+            self.ui.PatientDateOfBirthEdit.setText(DateEdit)
+        except:
+            print("Not A Chance!")
+            
