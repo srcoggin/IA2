@@ -73,6 +73,11 @@ class MainWindow():
         self.ui.AppointmentIDSpinbox.valueChanged.connect(self.AP.AppointmentSpinBoxSelected)
         self.ui.AppointmentDateEdit.textChanged.connect(self.AP.ChangeDateTimeToLineEdit)
         self.ui.AppointmentDateEdit_2.dateTimeChanged.connect(self.AP.LineEditToChangeDate)
+        self.ui.AppointmentSearchByDateButton.clicked.connect(self.AP.SearchByDate)
+        self.ui.AppointmentAddButton.clicked.connect(self.AP.AddNewAppointment)
+        self.ui.DeleteAppointmentButton.clicked.connect(self.AP.DeleteAppointment)
+        self.ui.AppointmentSearchByPaidButton.clicked.connect(self.AP.SearchByPaid)
+        self.ui.AppointmentComboBox.currentIndexChanged.connect(self.AP.AppointmentComboBox)
 
 
 

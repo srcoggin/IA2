@@ -118,7 +118,7 @@ class DataStore:
         )
         self.db.commit()
 
-    def EditPhotoPatient(self, filepath, clinicianID):
+    def EditPhotoClinician(self, filepath, clinicianID):
         self.cursor.execute(
             """
                 UPDATE Clinicians SET Photo = :Photo WHERE ID LIKE :clinicianID
@@ -314,6 +314,30 @@ class DataStore:
             for i in List:
                 id += "{}".format(i)
             return id
+    
+    def SearchAllAppointmentDates(self):
+            self.cursor.execute(
+            """
+                    SELECT Date FROM Appointments
+                """
+            )
+            List = self.cursor.fetchall()
+            date = ""
+            for i in List:
+                date += "{}".format(i)
+            return date
+    
+    def SearchAllAppointmentPaid(self):
+            self.cursor.execute(
+            """
+                    SELECT Paid FROM Appointments
+                """
+            )
+            List = self.cursor.fetchall()
+            paid = ""
+            for i in List:
+                paid += "{}".format(i)
+            return paid
 
     def SelectMatchingAppointment(self, appointmentid):
             self.cursor.execute(
@@ -325,3 +349,57 @@ class DataStore:
             )
             List = self.cursor.fetchall()
             return List
+    
+    def SelectMatchingAppointmentDate(self, appointmentdate):
+            self.cursor.execute(
+                """
+                    SELECT * FROM Appointments
+                    WHERE Date LIKE :appointmentdate
+                """,
+                {'appointmentdate': appointmentdate}
+            )
+            List = self.cursor.fetchall()
+            return List
+
+    def SelectMatchingAppointmentPaid(self, appointmentpaid):
+            self.cursor.execute(
+                """
+                    SELECT * FROM Appointments
+                    WHERE Paid LIKE :appointmentpaid
+                """,
+                {'appointmentpaid': appointmentpaid}
+            )
+            List = self.cursor.fetchall()
+            return List
+    
+    def NewAppointmentDS(self, AppointmentID, Date, Length, Result, ClinicianID, ServiceUsed, PatientID, Paid):
+        self.cursor.execute(
+            """
+                INSERT INTO Appointments (ID, Date, Length, Result, CliniciansID, ServiceUsed, PatientID, Paid)
+                VALUES (:ID, :Date, :Length, :Result, :ClinicianID, :ServiceUsed, :PatientID, :Paid)
+            """,
+            {"ID": AppointmentID, "Date": Date, "Length": Length, "Result": Result, "ClinicianID": ClinicianID, "ServiceUsed": ServiceUsed, "PatientID": PatientID, "Paid": Paid}
+        )
+        self.db.commit()
+
+    def DeleteAppointment(self, AppointmentID):
+        self.cursor.execute(
+            """
+                DELETE FROM Appointments
+                WHERE ID LIKE :AppointmentID
+            """,
+            {"AppointmentID": AppointmentID}
+        )
+        self.db.commit()
+
+    def AppointmentDisplayComboBox(self):
+        self.cursor.execute(
+            """
+                    SELECT ID FROM Appointments
+                """
+            )
+        List = self.cursor.fetchall()
+        Display = ""
+        for i in List:
+            Display += "Appointment ID: {}".format(i)
+        return Display

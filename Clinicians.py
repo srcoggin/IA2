@@ -41,7 +41,7 @@ class Clinicians():
                 if i[7] == "":
                     self.ui.PhotoLabelClinician.setText("Photo Cannot Be Found for this Patient")
                 else:
-                    self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{i[6]}"))
+                    self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{i[7]}"))
             if self.ui.ClinicianIDSpinBox.value() != self.ui.ClinicianIDEdit.text():
                 self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))
             FirstName = self.ui.ClinicianFirstNameEdit.text()
@@ -88,7 +88,7 @@ class Clinicians():
                         if i[7] == "":
                             self.ui.PhotoLabelClinician.setText("Photo Cannot Be Found for this Patient")
                         else:
-                            self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{i[6]}"))
+                            self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{i[7]}"))
             else:
                 print("its broke")
             FirstName = self.ui.ClinicianFirstNameEdit.text()
@@ -104,7 +104,6 @@ class Clinicians():
         if ClinicianRole not in AllRoles:
             self.mw.error()
         else:
-            Numb = 0
             for i in range(1):
                 if ClinicianRole in AllRoles:
                     NumbOfMatches = AllRoles.count(ClinicianRole)
@@ -123,7 +122,7 @@ class Clinicians():
                             if i[7] == "":
                                 self.ui.PhotoLabelClinician.setText("Photo Cannot Be Found for this Clinician")
                             else:
-                                self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{i[6]}"))
+                                self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{i[7]}"))
                             if self.ui.ClinicianIDSpinBox.value() != self.ui.ClinicianIDEdit.text():
                                 self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))
                             FirstName = self.ui.ClinicianFirstNameEdit.text()
@@ -157,7 +156,7 @@ class Clinicians():
                             if i[7] == "":
                                 self.ui.PhotoLabelClinician.setText("Photo Cannot Be Found for this Clinician")
                             else:
-                                self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{i[6]}"))
+                                self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{i[7]}"))
                             if self.ui.ClinicianIDSpinBox.value() != self.ui.ClinicianIDEdit.text():
                                 self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))
                             FirstName = self.ui.ClinicianFirstNameEdit.text()
@@ -307,7 +306,7 @@ class Clinicians():
     def ChangeClinicianPhoto(self):
         try:
             filepathforphoto = filedialog.askopenfilename(initialdir="C:", title="Please Choose A Photo", filetypes=(("jpg files", "*.jpg"),("png file", "*.png")))
-            self.ds.EditPhotoClinician(str(filepathforphoto), self.ui.PatientID_edit.text())
+            self.ds.EditPhotoClinician(str(filepathforphoto), self.ui.ClinicianIDEdit.text())
             print(filepathforphoto)
             self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{filepathforphoto}"))
         except:
