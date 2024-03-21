@@ -24,7 +24,8 @@ class MainWindow():
         self.PP = Patients(self.ds, self.ui, self, self.LogFile)
         self.CP = Clinicians(self.ds, self.ui, self, self.LogFile)
         self.AP = Appointments(self.ds, self.ui, self, self.LogFile)
-
+        self.ui.AppointmentComboBox.addItem("")
+        self.AP.AppointmentComboBox()
         #Login Page Buttons
         self.ui.EnterButton_LoginPage.clicked.connect(self.Login)
         self.ui.ExitButton_LoginPage.clicked.connect(self.Exit)
@@ -77,7 +78,7 @@ class MainWindow():
         self.ui.AppointmentAddButton.clicked.connect(self.AP.AddNewAppointment)
         self.ui.DeleteAppointmentButton.clicked.connect(self.AP.DeleteAppointment)
         self.ui.AppointmentSearchByPaidButton.clicked.connect(self.AP.SearchByPaid)
-        self.ui.AppointmentComboBox.currentIndexChanged.connect(self.AP.AppointmentComboBox)
+        self.ui.AppointmentComboBox.currentIndexChanged.connect(self.AP.ChangedAppointmentComboBox)
 
 
 

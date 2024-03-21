@@ -392,6 +392,17 @@ class DataStore:
         )
         self.db.commit()
 
+    def AppointmentSearchByComboBox(self, AppointmentID):
+        self.cursor.execute(
+            """
+                SELECT * FROM Appointments
+                WHERE ID LIKE :AppointmentID
+            """,
+            {"AppointmentID": AppointmentID}
+        )
+        List = self.cursor.fetchall()
+        return List
+
     def AppointmentDisplayComboBox(self):
         self.cursor.execute(
             """
@@ -399,7 +410,17 @@ class DataStore:
                 """
             )
         List = self.cursor.fetchall()
-        Display = ""
+        Display = []
         for i in List:
-            Display += "Appointment ID: {}".format(i)
+            Display += [f"{i} Appointment"]
         return Display
+    
+    def UpdateAppointmentDetails(self, AppointmentID, Date, Length, Result, ClinicianID, ServiceUsed, PatientID, Paid):
+        self.cursor.execute(
+            """
+                REPLACE INTO Appointments (ID, Date, Length, Result, ClinicianID, ServiceUsed, PatientID, Paid)
+                VALUES (:AppointmentID, :Date, :Length, :Result, :ClinicianID, :ServiceUsed, :PatientID, Paid)
+            """,
+            {"ID": AppointmentID, "Date": Date, "Length": Length, "Result": Result, "ClinicianID": ClinicianID, "ServiceUsed": ServiceUsed, "PatientID": PatientID, "Paid": Paid}
+        )
+        self.db.commit()

@@ -383,3 +383,74 @@ Will Coggins, has logged into the app at 2024-03-20 09:50:40.039991
 Will Coggins, Logged out of the app, at 2024-03-20 09:50:40.039991, Succsesfully
 Will Coggins, has logged into the app at 2024-03-20 09:53:04.292312
 Will Coggins, Logged out of the app, at 2024-03-20 09:53:04.292312, Succsesfully
+Will Coggins, has logged into the app at 2024-03-20 17:36:28.742402
+Will Coggins, Logged out of the app, at 2024-03-20 17:36:28.742402, Succsesfully
+Will Coggins, has logged into the app at 2024-03-20 17:44:41.582805
+Will Coggins, Logged out of the app, at 2024-03-20 17:44:41.582805, Succsesfully
+Will Coggins, has logged into the app at 2024-03-20 17:58:08.381907
+Will Coggins, Logged out of the app, at 2024-03-20 17:58:08.381907, Succsesfully
+Will Coggins, has logged into the app at 2024-03-20 18:01:00.455240
+Will Coggins, Logged out of the app, at 2024-03-20 18:01:00.455240, Succsesfully
+Will Coggins, has logged into the app at 2024-03-20 18:01:25.046885
+Will Coggins, Logged out of the app, at 2024-03-20 18:01:25.046885, Succsesfully
+Will Coggins, has logged into the app at 2024-03-20 18:02:16.789641
+Will Coggins, Logged out of the app, at 2024-03-20 18:02:16.789641, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 16:52:58.113614
+Will Coggins, Logged out of the app, at 2024-03-21 16:52:58.113614, Succsesfully
+ , has logged into the app at 2024-03-21 17:04:40.598022
+ , has searched for Will Coggins, By Scrolling through the SpinBox, at 2024-03-21 17:04:42.265674, Succsesfully
+ , has searched for Sam Heinz, By Scrolling through the SpinBox, at 2024-03-21 17:04:42.265674, Succsesfully
+ , has searched for Bob robby, By Scrolling through the SpinBox, at 2024-03-21 17:04:42.265674, Succsesfully
+ , has searched for clopp slopp, By Scrolling through the SpinBox, at 2024-03-21 17:04:42.265674, Succsesfully
+ , has searched for clopp slopp, By Scrolling through the SpinBox, at 2024-03-21 17:04:42.265674, Succsesfully
+ , has searched for clopp slopp, By Scrolling through the SpinBox, at 2024-03-21 17:04:42.265674, Succsesfully
+ , Logged out of the app, at 2024-03-21 17:04:40.598022, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 17:11:25.249410
+Will Coggins, Logged out of the app, at 2024-03-21 17:11:25.249410, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 17:13:09.832754
+Will Coggins, Logged out of the app, at 2024-03-21 17:13:09.832754, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 17:14:18.979154
+Will Coggins, Logged out of the app, at 2024-03-21 17:14:18.979154, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 17:16:19.460802
+Will Coggins, Logged out of the app, at 2024-03-21 17:16:19.460802, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 17:19:08.338275
+Will Coggins, Logged out of the app, at 2024-03-21 17:19:08.338275, Succsesfully
+ , has logged into the app at 2024-03-21 17:31:42.624458
+ , Logged out of the app, at 2024-03-21 17:31:42.624458, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 17:33:15.717692
+Will Coggins, Logged out of the app, at 2024-03-21 17:33:15.717692, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 17:36:38.149781
+Will Coggins, Logged out of the app, at 2024-03-21 17:36:38.149781, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 17:42:50.811407
+Will Coggins, Logged out of the app, at 2024-03-21 17:42:50.811407, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 17:45:18.591688
+Will Coggins, Logged out of the app, at 2024-03-21 17:45:18.591688, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 17:47:32.151795
+Will Coggins, Logged out of the app, at 2024-03-21 17:47:32.151795, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 17:48:02.241020
+Will Coggins, Logged out of the app, at 2024-03-21 17:48:02.241020, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 17:48:30.975999
+Will Coggins, Logged out of the app, at 2024-03-21 17:48:30.975999, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 17:52:14.064311
+Will Coggins, has searched for an Appointment with the ID 1, By Scrolling through the SpinBox, at 2024-03-21 17:52:15.657661, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 2, By Scrolling through the SpinBox, at 2024-03-21 17:52:15.657661, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 3, By Scrolling through the SpinBox, at 2024-03-21 17:52:15.657661, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 1, By Scrolling through the SpinBox, at 2024-03-21 17:52:15.657661, Succsesfully
+Will Coggins, Logged out of the app, at 2024-03-21 17:52:14.064311, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 17:54:15.161745
+Will Coggins, has searched for an Appointment with the ID 1, By Scrolling through the SpinBox, at 2024-03-21 17:54:16.689186, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 1, By Scrolling through the SpinBox, at 2024-03-21 17:54:16.689186, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 1, By Scrolling through the SpinBox, at 2024-03-21 17:54:16.689186, Succsesfully
+Will Coggins, Logged out of the app, at 2024-03-21 17:54:15.161745, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 17:56:44.656058
+Will Coggins, has searched for an Appointment with the ID 1, By Scrolling through the SpinBox, at 2024-03-21 17:56:46.157357, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 3, By Scrolling through the SpinBox, at 2024-03-21 17:56:46.157357, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 2, By Scrolling through the SpinBox, at 2024-03-21 17:56:46.157357, Succsesfully
+Will Coggins, Logged out of the app, at 2024-03-21 17:56:44.656058, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 17:57:06.172236
+Will Coggins, Logged out of the app, at 2024-03-21 17:57:06.172236, Succsesfully
+Will Coggins, has logged into the app at 2024-03-21 17:57:25.334046
+Will Coggins, has searched for an Appointment with the ID 1, By Scrolling through the SpinBox, at 2024-03-21 17:57:26.812662, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 2, By Scrolling through the SpinBox, at 2024-03-21 17:57:26.812662, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 3, By Scrolling through the SpinBox, at 2024-03-21 17:57:26.812662, Succsesfully
+Will Coggins, Logged out of the app, at 2024-03-21 17:57:25.334046, Succsesfully
