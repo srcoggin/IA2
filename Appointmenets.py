@@ -186,6 +186,8 @@ class Appointments():
                             self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Added a new Appointment with the ID {AppointmentID}, at {self.currentdate}, Succsesfully")
                             self.mw.OperationSuccessful()
                             self.ui.AppointmentIDSpinbox.setValue(int(AppointmentID))
+                            data = [f"({AppointmentID},) Appointment"]
+                            self.ui.AppointmentComboBox.addItems(data)
                         except:
                             msg = QMessageBox()
                             msg.setText("The Data provided either contains Null info, or the Login-Pin is not unique")
@@ -200,9 +202,9 @@ class Appointments():
             QMessageBox.close
 
     def AppointmentComboBox(self):
-        self.ui.AppointmentComboBox.addItems(self.ds.AppointmentDisplayComboBox())
-        print(self.ds.AppointmentDisplayComboBox()) 
-        print(self.ui.AppointmentComboBox.currentIndex())
+        data = self.ds.AppointmentDisplayComboBox()
+        sorteddata = sorted(data, reverse=False)
+        self.ui.AppointmentComboBox.addItems(sorteddata)
 
     def ChangedAppointmentComboBox(self):
         if self.ui.AppointmentComboBox.currentIndex() == 0:
@@ -263,10 +265,15 @@ class Appointments():
                     if Access == True:
                         try:
                             self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Edited an Appointments Data with the ID {AppointmentID}, at {self.currentdate}, Succsesfully")
-                            self.ds.UpdateAppointmentDetails(AppointmentID, Date, Length, Result, ClinicianID, ServiceUsed, PatientID, Paid)
+                            self.ds.UpdateAppointmentDetails(AppointmentID, Date, Length, Result, Paid, PatientID, ClinicianID, ServiceUsed)
                             self.ds.DeleteAppointment(self.ui.AppointmentIDSpinbox.text())
                             self.ui.AppointmentIDSpinbox.setValue(int(AppointmentID))
                             self.mw.OperationSuccessful()
+                            data = [f"({AppointmentID},) Appointment"]
+                            self.ui.AppointmentComboBox.addItems(data)
+                            self.ui.AppointmentComboBox.setCurrentIndex(int(AppointmentID))
+                            index = self.ui.AppointmentComboBox.currentIndex()
+                            self.ui.AppointmentComboBox.removeItem(index)
                         except:
                             msg = QMessageBox()
                             msg.setText("The Data provided contains Null info")
@@ -285,9 +292,14 @@ class Appointments():
                 Access = self.mw.ClinicianLoginPinPopUpBox(False)
                 if Access == True:
                     self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Edited an Appointments Data with the ID {AppointmentID}, at {self.currentdate}, Succsesfully")
-                    self.ds.UpdateAppointmentDetails(AppointmentID, Date, Length, Result, ClinicianID, ServiceUsed, PatientID, Paid)
+                    self.ds.UpdateAppointmentDetails(AppointmentID, Date, Length, Result, Paid, PatientID, ClinicianID, ServiceUsed)
                     self.ui.AppointmentIDSpinbox.setValue(int(AppointmentID))
                     self.mw.OperationSuccessful()
+                    data = [f"({AppointmentID},) Appointment"]
+                    self.ui.AppointmentComboBox.addItems(data)
+                    self.ui.AppointmentComboBox.setCurrentIndex(int(AppointmentID) +1)
+                    index = self.ui.AppointmentComboBox.currentIndex()
+                    self.ui.AppointmentComboBox.removeItem(index)
                 else:
                     self.mw.OperationUnsuccessful()
         elif button_clicked == QMessageBox.No:
@@ -314,6 +326,9 @@ class Appointments():
                     self.ds.DeleteAppointment(AppointmentID)
                     self.mw.OperationSuccessful()
                     self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Deleted an Appointment with the ID {AppointmentID} from the Data Base, using their ID, at {self.currentdate}, Succsesfully")
+                    self.ui.AppointmentComboBox.setCurrentIndex(int(self.ui.DeleteAppointmentInput.text()))
+                    index = self.ui.AppointmentComboBox.currentIndex()
+                    self.ui.AppointmentComboBox.removeItem(index)
                 else:
                     self.mw.OperationUnsuccessful()
             else:

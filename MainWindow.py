@@ -11,7 +11,7 @@ from Appointmenets import Appointments
 
 
 
-class MainWindow():
+class NewMainWindow():
     def __init__(self):
         self.LineEdit = QLineEdit()
         self.currentdate = datetime.datetime.now()
@@ -25,7 +25,12 @@ class MainWindow():
         self.CP = Clinicians(self.ds, self.ui, self, self.LogFile)
         self.AP = Appointments(self.ds, self.ui, self, self.LogFile)
         self.ui.AppointmentComboBox.addItem("")
+        self.ui.PatientComboBox.addItem("")
+        self.ui.ClinicianComboBox.addItem("")
         self.AP.AppointmentComboBox()
+        self.PP.PatientComboBox()
+        self.CP.ClinicianComboBox()
+
         #Login Page Buttons
         self.ui.EnterButton_LoginPage.clicked.connect(self.Login)
         self.ui.ExitButton_LoginPage.clicked.connect(self.Exit)
@@ -50,6 +55,7 @@ class MainWindow():
         self.ui.PatientDateOfBirthEdit.textChanged.connect(self.PP.ChangeDateTimeToLineEdit)
         self.ui.PatientDateOfBirthDateEdit.dateTimeChanged.connect(self.PP.LineEditToChangeDate)
         self.ui.PatientEditPhoto_Button.clicked.connect(self.PP.ChangePatientPhoto)
+        self.ui.PatientComboBox.currentIndexChanged.connect(self.PP.ChangedPatientComboBox)
 
         #Clinician Page Buttons
         self.ui.ClinicianAppointmentButton.clicked.connect(self.AppointmentPageSelect)
@@ -64,6 +70,7 @@ class MainWindow():
         self.ui.ClinicianDataEditButton.clicked.connect(self.CP.EditClinicianData)
         self.ui.AddNewClinicianButton.clicked.connect(self.CP.AddNewClinician)
         self.ui.ClinicianPhotoEditButton.clicked.connect(self.CP.ChangeClinicianPhoto)
+        self.ui.ClinicianComboBox.currentIndexChanged.connect(self.CP.ChangedClinicianComboBox)
 
         #Appointmenet Page Buttons
         self.ui.HomePageAppointmentButton.clicked.connect(self.HomePageSelect)
@@ -79,6 +86,7 @@ class MainWindow():
         self.ui.DeleteAppointmentButton.clicked.connect(self.AP.DeleteAppointment)
         self.ui.AppointmentSearchByPaidButton.clicked.connect(self.AP.SearchByPaid)
         self.ui.AppointmentComboBox.currentIndexChanged.connect(self.AP.ChangedAppointmentComboBox)
+        self.ui.AppointmentDataEditButton.clicked.connect(self.AP.EditAppointment)
 
 
 
@@ -98,6 +106,16 @@ class MainWindow():
             self.LogFile.close()
         exit()
 
+
+    #ComboBo ReRuns
+    def ClinicianReRun(self):
+        self.CP.ClinicianComboBox()
+
+    def AppointmentReRun(self):
+        self.AP.AppointmentComboBox()
+    
+    def PatientReRun(self):
+        self.PP.PatientComboBox()
 
     #Pop Up Boxes
     def error(self):

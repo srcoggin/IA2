@@ -402,6 +402,17 @@ class DataStore:
         )
         List = self.cursor.fetchall()
         return List
+    
+    def PatientSearchByComboBox(self, PatientID):
+        self.cursor.execute(
+            """
+                SELECT * FROM Patients
+                WHERE ID LIKE :PatientID
+            """,
+            {"PatientID": PatientID}
+        )
+        List = self.cursor.fetchall()
+        return List
 
     def AppointmentDisplayComboBox(self):
         self.cursor.execute(
@@ -415,12 +426,47 @@ class DataStore:
             Display += [f"{i} Appointment"]
         return Display
     
-    def UpdateAppointmentDetails(self, AppointmentID, Date, Length, Result, ClinicianID, ServiceUsed, PatientID, Paid):
+    def PatientDisplayComboBox(self):
         self.cursor.execute(
             """
-                REPLACE INTO Appointments (ID, Date, Length, Result, ClinicianID, ServiceUsed, PatientID, Paid)
-                VALUES (:AppointmentID, :Date, :Length, :Result, :ClinicianID, :ServiceUsed, :PatientID, Paid)
+                    SELECT ID FROM Patients
+                """
+            )
+        List = self.cursor.fetchall()
+        Display = []
+        for i in List:
+            Display += [f"{i} Patient"]
+        return Display
+    
+    def ClinicianDisplayComboBox(self):
+        self.cursor.execute(
+            """
+                    SELECT ID FROM Clinicians
+                """
+            )
+        List = self.cursor.fetchall()
+        Display = []
+        for i in List:
+            Display += [f"{i} Clinician"]
+        return Display
+    
+    def ClinicianSearchByComboBox(self, ClinicianID):
+        self.cursor.execute(
+            """
+                SELECT * FROM Clinicians
+                WHERE ID LIKE :ClinicianID
             """,
-            {"ID": AppointmentID, "Date": Date, "Length": Length, "Result": Result, "ClinicianID": ClinicianID, "ServiceUsed": ServiceUsed, "PatientID": PatientID, "Paid": Paid}
+            {"ClinicianID": ClinicianID}
+        )
+        List = self.cursor.fetchall()
+        return List
+    
+    def UpdateAppointmentDetails(self, AppointmentID, Date, Length, Result, Paid, PatientID, CliniciansID, ServiceUsed):
+        self.cursor.execute(
+            """
+                REPLACE INTO Appointments (ID, Date, Length, Result, Paid, PatientID, CliniciansID, ServiceUsed)
+                VALUES (:AppointmentID, :Date, :Length, :Result, :Paid, :PatientID, :CliniciansID, :ServiceUsed)
+            """,
+            {"AppointmentID": AppointmentID, "Date": Date, "Length": Length, "Result": Result, "Paid": Paid, "PatientID": PatientID, "CliniciansID": CliniciansID, "ServiceUsed": ServiceUsed}
         )
         self.db.commit()

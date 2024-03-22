@@ -9,6 +9,8 @@ from datastore import DataStore
 from tkinter import *
 from tkinter import filedialog
 
+
+
 class Clinicians():
     def __init__(self, datastore: DataStore, UI: Ui_Form, MW, Log):
         self.LineEdit = QLineEdit()
@@ -183,11 +185,13 @@ class Clinicians():
                     self.ui.ClinicianLastNameEdit.setText(i[2])
                 FirstName = self.ui.ClinicianFirstNameEdit.text()
                 LastName = self.ui.ClinicianLastNameEdit.text()
-                self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Deleted {FirstName} {LastName} from the Data Base, using their ID, at {self.currentdate}, Succsesfully")
                 Access = self.mw.ClinicianLoginPinPopUpBox(False)
                 if Access == True:
                     self.ds.DeleteClinician(ClinicianID)
                     self.mw.OperationSuccessful()
+                    self.ui.ClinicianComboBox.setCurrentIndex(int(self.ui.DeleteClinicianIDInput.text()))
+                    index = self.ui.ClinicianComboBox.currentIndex()
+                    self.ui.ClinicianComboBox.removeItem(index)
                     self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Deleted {FirstName} {LastName} from the Data Base, using their ID, at {self.currentdate}, Succsesfully")
                 else:
                     self.mw.OperationUnsuccessful()
@@ -202,6 +206,7 @@ class Clinicians():
         self.ui.ClinicianDepartmentEdit.clear()
         self.ui.ClinicianIDEdit.clear()
         self.ui.ClinicianIDSpinBox.setValue(0)
+        self.ui.PhotoLabelClinician.clear()
 
     def EditClinicianData(self):
         ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
@@ -234,7 +239,12 @@ class Clinicians():
                             self.ds.UpdateClinicianDetails(FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services)
                             self.ds.DeleteClinician(self.ui.ClinicianIDSpinBox.text())
                             self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))
+                            data = [f"({ClinicianID},) Clinician"]
+                            self.ui.ClinicianComboBox.addItems(data)
                             self.mw.OperationSuccessful()
+                            self.ui.ClinicianComboBox.setCurrentIndex(int(ClinicianID))
+                            index = self.ui.ClinicianComboBox.currentIndex()
+                            self.ui.ClinicianComboBox.removeItem(index)
                         except:
                             msg = QMessageBox()
                             msg.setText("The Data provided contains Null info")
@@ -254,8 +264,13 @@ class Clinicians():
                 if Access == True:
                     self.ds.UpdateClinicianDetails(FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services)
                     self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Edited {FirstName} {LastName}'s Data, at {self.currentdate}, Succsesfully")
+                    data = [f"({ClinicianID},) Clinician"]
+                    self.ui.ClinicianComboBox.addItems(data)
                     self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))
                     self.mw.OperationSuccessful()
+                    self.ui.ClinicianComboBox.setCurrentIndex(int(ClinicianID))
+                    index = self.ui.ClinicianComboBox.currentIndex()
+                    self.ui.ClinicianComboBox.removeItem(index)
                 else:
                     self.mw.OperationUnsuccessful()
         elif button_clicked == QMessageBox.No:
@@ -290,6 +305,8 @@ class Clinicians():
                             self.ds.NewClinicianDS(FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services)
                             self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Added a new Patient, {FirstName} {LastName}, at {self.currentdate}, Succsesfully")
                             self.mw.OperationSuccessful()
+                            data = [f"({ClinicianID},) Clinician"]
+                            self.ui.ClinicianComboBox.addItems(data)
                         except:
                             msg = QMessageBox()
                             msg.setText("The Data provided either contains Null info, or the Login-Pin is not unique")
@@ -311,3 +328,40 @@ class Clinicians():
             self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{filepathforphoto}"))
         except:
             self.mw.error()
+
+
+    def ClinicianComboBox(self):
+        data = self.ds.ClinicianDisplayComboBox()
+        sorteddata = sorted(data, reverse=False)
+        self.ui.ClinicianComboBox.addItems(sorteddata)
+
+    def ChangedClinicianComboBox(self):
+        if self.ui.ClinicianComboBox.currentIndex() == 0:
+            self.ui.ClinicianFirstNameEdit.clear()
+            self.ui.ClinicianLastNameEdit.clear()
+            self.ui.ClinicianRoleEdit.clear()
+            self.ui.ClinicianServicesEdit.clear()
+            self.ui.ClinicianLoginPinEdit.clear()
+            self.ui.ClinicianDepartmentEdit.clear()
+            self.ui.ClinicianIDEdit.clear()
+            self.ui.ClinicianIDSpinBox.setValue(0)
+            self.ui.PhotoLabelClinician.clear()
+        else:
+            item = self.ui.ClinicianComboBox.currentText()
+            value = [item.split(',')[0][1:]]
+            self.ds.ClinicianSearchByComboBox(value[0])
+            ClinicianData = self.ds.ClinicianSearchByComboBox(value[0])
+            for i in ClinicianData:
+                self.ui.ClinicianFirstNameEdit.setText(i[1])
+                self.ui.ClinicianLastNameEdit.setText(i[2])
+                self.ui.ClinicianLoginPinEdit.setText(str(i[3]))
+                self.ui.ClinicianRoleEdit.setText(i[4])
+                self.ui.ClinicianDepartmentEdit.setText(str(i[5]))
+                self.ui.ClinicianIDEdit.setText(str(i[0]))
+                self.ui.ClinicianServicesEdit.setText(i[6])
+                if i[7] == "":
+                    self.ui.PhotoLabelClinician.setText("Photo Cannot Be Found for this Clinician")
+                else:
+                    self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{i[7]}"))
+            if self.ui.ClinicianIDSpinBox.value() != self.ui.ClinicianIDEdit.text():
+                self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))
