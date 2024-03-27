@@ -7,6 +7,7 @@ import datetime
 from Patients import Patients
 from Clinicians import Clinicians
 from Appointmenets import Appointments
+from SalesData import Sales
 
 
 
@@ -24,12 +25,15 @@ class NewMainWindow():
         self.PP = Patients(self.ds, self.ui, self, self.LogFile)
         self.CP = Clinicians(self.ds, self.ui, self, self.LogFile)
         self.AP = Appointments(self.ds, self.ui, self, self.LogFile)
-        self.ui.AppointmentComboBox.addItem("")
-        self.ui.PatientComboBox.addItem("")
-        self.ui.ClinicianComboBox.addItem("")
+        self.SD = Sales(self.ds, self.ui, self, self.LogFile)
+        self.ui.AppointmentComboBox.addItem("Please Select an Appointment")
+        self.ui.PatientComboBox.addItem("Please Select a Patient")
+        self.ui.ClinicianComboBox.addItem("Please Select a Clinician")
+        self.ui.SalesDataComboBox.addItem("Please Select a Period")
         self.AP.AppointmentComboBox()
         self.PP.PatientComboBox()
         self.CP.ClinicianComboBox()
+        self.SD.SalesDataComboBox()
 
         #Login Page Buttons
         self.ui.EnterButton_LoginPage.clicked.connect(self.Login)
@@ -87,9 +91,11 @@ class NewMainWindow():
         self.ui.AppointmentSearchByPaidButton.clicked.connect(self.AP.SearchByPaid)
         self.ui.AppointmentComboBox.currentIndexChanged.connect(self.AP.ChangedAppointmentComboBox)
         self.ui.AppointmentDataEditButton.clicked.connect(self.AP.EditAppointment)
+        self.ui.SalesDataButton.clicked.connect(self.SalesDataPageSelect)
 
-
-
+        #Sales Data Page Buttons
+        self.ui.ExitButton_SalesDataPage.clicked.connect(self.Exit)
+        self.ui.SalesDataComboBox.currentIndexChanged.connect(self.SD.SalesUpdate)
 
     #Shows the user interface
     def show(self):
@@ -107,15 +113,6 @@ class NewMainWindow():
         exit()
 
 
-    #ComboBo ReRuns
-    def ClinicianReRun(self):
-        self.CP.ClinicianComboBox()
-
-    def AppointmentReRun(self):
-        self.AP.AppointmentComboBox()
-    
-    def PatientReRun(self):
-        self.PP.PatientComboBox()
 
     #Pop Up Boxes
     def error(self):
@@ -177,6 +174,13 @@ class NewMainWindow():
         self.ui.stackedWidget.setCurrentWidget(self.ui.Home)
     def LoginPageSelect(self):
         self.ui.stackedWidget.setCurrentWidget(self.ui.LoginPage)
+    def SalesDataPageSelect(self):
+        self.ui.stackedWidget.setCurrentWidget(self.ui.SalesDataPage)
+        msg = QMessageBox()
+        msg.setText("This Sales Data is only updated every time the App is opened and closed. (Not Updated in real time)")
+        msg.setWindowTitle("Warning!")
+        msg.setStandardButtons(QMessageBox.Close)
+        msg.exec()
 
 
     #Login Page Functions

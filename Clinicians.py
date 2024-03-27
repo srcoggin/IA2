@@ -125,6 +125,7 @@ class Clinicians():
                                 self.ui.PhotoLabelClinician.setText("Photo Cannot Be Found for this Clinician")
                             else:
                                 self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{i[7]}"))
+                            self.ui.costedit.setText(str(i[8]))
                             if self.ui.ClinicianIDSpinBox.value() != self.ui.ClinicianIDEdit.text():
                                 self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))
                             FirstName = self.ui.ClinicianFirstNameEdit.text()
@@ -159,6 +160,7 @@ class Clinicians():
                                 self.ui.PhotoLabelClinician.setText("Photo Cannot Be Found for this Clinician")
                             else:
                                 self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{i[7]}"))
+                            self.ui.costedit.setText(str(i[8]))
                             if self.ui.ClinicianIDSpinBox.value() != self.ui.ClinicianIDEdit.text():
                                 self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))
                             FirstName = self.ui.ClinicianFirstNameEdit.text()
@@ -218,6 +220,7 @@ class Clinicians():
         LoginPin = self.ui.ClinicianLoginPinEdit.text()
         Department = self.ui.ClinicianDepartmentEdit.text()
         Services = self.ui.ClinicianServicesEdit.text()
+        Cost = self.ui.costedit.text()
         MatchingID = self.ds.SearchAllClinicianID()
         msg = QMessageBox()
         msg.setText("Are you sure you want to do this?")
@@ -236,7 +239,7 @@ class Clinicians():
                     if Access == True:
                         try:
                             self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Edited {FirstName} {LastName}'s Data, at {self.currentdate}, Succsesfully")
-                            self.ds.UpdateClinicianDetails(FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services)
+                            self.ds.UpdateClinicianDetails(FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services, Cost)
                             self.ds.DeleteClinician(self.ui.ClinicianIDSpinBox.text())
                             self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))
                             data = [f"({ClinicianID},) Clinician"]
@@ -262,7 +265,7 @@ class Clinicians():
             else:
                 Access = self.mw.ClinicianLoginPinPopUpBox(False)
                 if Access == True:
-                    self.ds.UpdateClinicianDetails(FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services)
+                    self.ds.UpdateClinicianDetails(FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services,Cost)
                     self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Edited {FirstName} {LastName}'s Data, at {self.currentdate}, Succsesfully")
                     data = [f"({ClinicianID},) Clinician"]
                     self.ui.ClinicianComboBox.addItems(data)
@@ -288,6 +291,7 @@ class Clinicians():
         Department = self.ui.ClinicianDepartmentEdit.text()
         LoginPin = self.ui.ClinicianLoginPinEdit.text()
         Services = self.ui.ClinicianServicesEdit.text()
+        Cost = self.ui.costedit.text()
         MatchingID = self.ds.SearchAllClinicianID()
         msg = QMessageBox()
         msg.setText("Are you sure you want to do this?")
@@ -302,7 +306,7 @@ class Clinicians():
                     Access = self.mw.ClinicianLoginPinPopUpBox(False)
                     if Access == True:
                         try:
-                            self.ds.NewClinicianDS(FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services)
+                            self.ds.NewClinicianDS(FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services, Cost)
                             self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Added a new Patient, {FirstName} {LastName}, at {self.currentdate}, Succsesfully")
                             self.mw.OperationSuccessful()
                             data = [f"({ClinicianID},) Clinician"]
@@ -363,5 +367,6 @@ class Clinicians():
                     self.ui.PhotoLabelClinician.setText("Photo Cannot Be Found for this Clinician")
                 else:
                     self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{i[7]}"))
+                self.ui.costedit.setText(str(i[8]))
             if self.ui.ClinicianIDSpinBox.value() != self.ui.ClinicianIDEdit.text():
                 self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))

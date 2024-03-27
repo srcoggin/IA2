@@ -1,5 +1,6 @@
 import os
 import sqlite3
+from collections import Counter
 
 
 class DataStore:
@@ -281,24 +282,24 @@ class DataStore:
         )
         self.db.commit()
 
-    def UpdateClinicianDetails(self, FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services):
+    def UpdateClinicianDetails(self, FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services, Cost):
         self.cursor.execute(
             """
-                REPLACE INTO Clinicians (ID, FirstName, Lastname, Department, Role, LoginPin, ServicesProvided)
-                VALUES (:ID, :FirstName, :LastName, :Department, :Role, :LoginPin, :Services)
+                REPLACE INTO Clinicians (ID, FirstName, Lastname, Department, Role, LoginPin, ServicesProvided, Cost)
+                VALUES (:ID, :FirstName, :LastName, :Department, :Role, :LoginPin, :Services, :Cost)
             """,
-            {"ID": ClinicianID, "FirstName": FirstName, "LastName": LastName, "Department": Department, "Role": Role, "LoginPin": LoginPin, "Services": Services}
+            {"ID": ClinicianID, "FirstName": FirstName, "LastName": LastName, "Department": Department, "Role": Role, "LoginPin": LoginPin, "Services": Services, "Cost": Cost}
         )
         self.db.commit()
 
 
-    def NewClinicianDS(self, FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services):
+    def NewClinicianDS(self, FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services, Cost):
         self.cursor.execute(
             """
-                INSERT INTO Clinicians (ID, FirstName, Lastname, Department, Role, LoginPin, ServicesProvided)
-                VALUES (:ID, :FirstName, :LastName, :Department, :Role, :LoginPin, :Services)
+                INSERT INTO Clinicians (ID, FirstName, Lastname, Department, Role, LoginPin, ServicesProvided, Cost)
+                VALUES (:ID, :FirstName, :LastName, :Department, :Role, :LoginPin, :Services, :Cost)
             """,
-            {"ID": ClinicianID, "FirstName": FirstName, "LastName": LastName, "Department": Department, "Role": Role, "LoginPin": LoginPin, "Services": Services}
+            {"ID": ClinicianID, "FirstName": FirstName, "LastName": LastName, "Department": Department, "Role": Role, "LoginPin": LoginPin, "Services": Services, "Cost": Cost}
         )
         self.db.commit()
 
@@ -403,6 +404,17 @@ class DataStore:
         List = self.cursor.fetchall()
         return List
     
+    def countingmoney(self, clinid):
+        self.cursor.execute(
+            """
+                SELECT Cost FROM Clinicians
+                WHERE ID LIKE :clinid
+            """,
+            {"clinid": clinid}
+        )
+        List = self.cursor.fetchall()
+        return List
+    
     def PatientSearchByComboBox(self, PatientID):
         self.cursor.execute(
             """
@@ -450,6 +462,20 @@ class DataStore:
             Display += [f"{i} Clinician"]
         return Display
     
+    def SalesDisplayComboBox(self):
+        self.cursor.execute(
+            """
+                    SELECT Year FROM Appointments
+                """
+            )
+        List = self.cursor.fetchall()
+        Display = []
+        for i in List:
+            Display += [f"{i}"]
+        counters = Counter(Display)
+        print(counters)
+        return counters
+    
     def ClinicianSearchByComboBox(self, ClinicianID):
         self.cursor.execute(
             """
@@ -460,6 +486,18 @@ class DataStore:
         )
         List = self.cursor.fetchall()
         return List
+    
+    def SalesDataSearchByComboBox(self, date):
+        self.cursor.execute(
+            """
+                SELECT *
+                FROM Appointments
+                WHERE Year = :date
+            """,
+            {"date": date}
+        )
+        row = self.cursor.fetchall()
+        return row  
     
     def UpdateAppointmentDetails(self, AppointmentID, Date, Length, Result, Paid, PatientID, CliniciansID, ServiceUsed):
         self.cursor.execute(

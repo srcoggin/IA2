@@ -600,3 +600,82 @@ Will Coggins, has searched for an Appointment with the ID 3, By Scrolling throug
 Will Coggins, has searched for an Appointment with the ID 4, By Scrolling through the SpinBox, at 2024-03-22 11:03:40.996404, Succsesfully
 Will Coggins, has Edited an Appointments Data with the ID 4, at 2024-03-22 11:03:40.996404, Succsesfully
 Will Coggins, Logged out of the app, at 2024-03-22 11:03:39.421589, Succsesfully
+Will Coggins, has logged into the app at 2024-03-22 17:31:01.272394
+Will Coggins, Logged out of the app, at 2024-03-22 17:31:01.272394, Succsesfully
+Will Coggins, has logged into the app at 2024-03-23 09:51:54.089814
+Will Coggins, Logged out of the app, at 2024-03-23 09:51:54.089814, Succsesfully
+Will Coggins, has logged into the app at 2024-03-23 09:53:49.074791
+Will Coggins, has logged into the app at 2024-03-23 10:00:18.954590
+Will Coggins, Logged out of the app, at 2024-03-23 10:00:18.954590, Succsesfully
+Will Coggins, has logged into the app at 2024-03-23 10:18:16.365400
+Will Coggins, Logged out of the app, at 2024-03-23 10:18:16.365400, Succsesfully
+Will Coggins, has logged into the app at 2024-03-23 10:18:50.792499
+Will Coggins, Logged out of the app, at 2024-03-23 10:18:50.792499, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 06:59:47.925106
+Will Coggins, Logged out of the app, at 2024-03-25 06:59:47.925106, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 07:00:44.333050
+Will Coggins, Logged out of the app, at 2024-03-25 07:00:44.333050, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 07:01:09.710418
+Will Coggins, Logged out of the app, at 2024-03-25 07:01:09.710418, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 07:02:15.778094
+Will Coggins, Logged out of the app, at 2024-03-25 07:02:15.778094, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 07:02:36.605729
+Will Coggins, Logged out of the app, at 2024-03-25 07:02:36.605729, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 10:27:17.904865
+Will Coggins, Logged out of the app, at 2024-03-25 10:27:17.904865, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 10:31:22.317684
+Will Coggins, Logged out of the app, at 2024-03-25 10:31:22.317684, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 10:33:56.882882
+Will Coggins, Logged out of the app, at 2024-03-25 10:33:56.882882, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 10:35:25.361428
+Will Coggins, Logged out of the app, at 2024-03-25 10:35:25.361428, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 10:36:08.305134
+Will Coggins, Logged out of the app, at 2024-03-25 10:36:08.305134, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 10:36:48.248749
+Will Coggins, Logged out of the app, at 2024-03-25 10:36:48.248749, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 10:37:20.986703
+Will Coggins, Logged out of the app, at 2024-03-25 10:37:20.986703, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 10:39:21.357297
+Will Coggins, Logged out of the app, at 2024-03-25 10:39:21.357297, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 10:42:01.267927
+Will Coggins, Logged out of the app, at 2024-03-25 10:42:01.267927, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 10:49:47.160031
+Will Coggins, Logged out of the app, at 2024-03-25 10:49:47.160031, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 10:50:53.774786
+Will Coggins, Logged out of the app, at 2024-03-25 10:50:53.774786, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 10:51:57.407896
+Will Coggins, Logged out of the app, at 2024-03-25 10:51:57.407896, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 10:52:49.397907
+Will Coggins, Logged out of the app, at 2024-03-25 10:52:49.397907, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 11:03:04.469576
+Will Coggins, Logged out of the app, at 2024-03-25 11:03:04.469576, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 11:21:18.818913
+Will Coggins, Logged out of the app, at 2024-03-25 11:21:18.818913, Succsesfully
+Will Coggins, has logged into the app at 2024-03-25 11:23:59.098277
+Will Coggins, Logged out of the app, at 2024-03-25 11:23:59.098277, Succsesfully
+Will Coggins, has logged into the app at 2024-03-26 08:47:31.776925
+Will Coggins, Logged out of the app, at 2024-03-26 08:47:31.776925, Succsesfully
+Will Coggins, has logged into the app at 2024-03-27 17:40:07.845211
+Will Coggins, Logged out of the app, at 2024-03-27 17:40:07.845211, Succsesfully
+Will Coggins, has logged into the app at 2024-03-27 17:40:55.024790
+Will Coggins, Logged out of the app, at 2024-03-27 17:40:55.024790, Succsesfully
+Will Coggins, has logged into the app at 2024-03-27 17:41:29.419488
+Will Coggins, Logged out of the app, at 2024-03-27 17:41:29.419488, Succsesfully
+Will Coggins, has logged into the app at 2024-03-27 17:57:38.206456
+Will Coggins, Logged out of the app, at 2024-03-27 17:57:38.206456, Succsesfully
+Will Coggins, has logged into the app at 2024-03-27 18:37:58.083487
+Will Coggins, Logged out of the app, at 2024-03-27 18:37:58.083487, Succsesfully
+Will Coggins, has logged into the app at 2024-03-27 18:38:59.437473
+Will Coggins, Logged out of the app, at 2024-03-27 18:38:59.437473, Succsesfully
+Will Coggins, has logged into the app at 2024-03-27 18:39:16.986079
+Will Coggins, Logged out of the app, at 2024-03-27 18:39:16.986079, Succsesfully
+Will Coggins, has logged into the app at 2024-03-27 18:40:38.897788
+Will Coggins, Logged out of the app, at 2024-03-27 18:40:38.897788, Succsesfully
+Will Coggins, has logged into the app at 2024-03-28 06:59:37.688870
+Will Coggins, Logged out of the app, at 2024-03-28 06:59:37.688870, Succsesfully
+Will Coggins, has logged into the app at 2024-03-28 07:00:04.235708
+Will Coggins, Logged out of the app, at 2024-03-28 07:00:04.235708, Succsesfully
+Will Coggins, has logged into the app at 2024-03-28 07:06:57.104864
+Will Coggins, Logged out of the app, at 2024-03-28 07:06:57.104864, Succsesfully
+Will Coggins, has logged into the app at 2024-03-28 07:08:39.873374
+Will Coggins, Logged out of the app, at 2024-03-28 07:08:39.873374, Succsesfully
