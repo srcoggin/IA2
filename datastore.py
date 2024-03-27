@@ -473,7 +473,6 @@ class DataStore:
         for i in List:
             Display += [f"{i}"]
         counters = Counter(Display)
-        print(counters)
         return counters
     
     def ClinicianSearchByComboBox(self, ClinicianID):
@@ -499,12 +498,12 @@ class DataStore:
         row = self.cursor.fetchall()
         return row  
     
-    def UpdateAppointmentDetails(self, AppointmentID, Date, Length, Result, Paid, PatientID, CliniciansID, ServiceUsed):
+    def UpdateAppointmentDetails(self, AppointmentID, Date, Length, Result, Paid, PatientID, CliniciansID, ServiceUsed, Year):
         self.cursor.execute(
             """
-                REPLACE INTO Appointments (ID, Date, Length, Result, Paid, PatientID, CliniciansID, ServiceUsed)
-                VALUES (:AppointmentID, :Date, :Length, :Result, :Paid, :PatientID, :CliniciansID, :ServiceUsed)
+                REPLACE INTO Appointments (ID, Date, Length, Result, Paid, PatientID, CliniciansID, ServiceUsed, Year)
+                VALUES (:AppointmentID, :Date, :Length, :Result, :Paid, :PatientID, :CliniciansID, :ServiceUsed, :Year)
             """,
-            {"AppointmentID": AppointmentID, "Date": Date, "Length": Length, "Result": Result, "Paid": Paid, "PatientID": PatientID, "CliniciansID": CliniciansID, "ServiceUsed": ServiceUsed}
+            {"AppointmentID": AppointmentID, "Date": Date, "Length": Length, "Result": Result, "Paid": Paid, "PatientID": PatientID, "CliniciansID": CliniciansID, "ServiceUsed": ServiceUsed, "Year": Year}
         )
         self.db.commit()

@@ -53,10 +53,12 @@ class Patients():
 
     def ChangePatientPhoto(self):
         try:
+            ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
+            ClinLastName = self.ds.MatchingClinicianLastName(self.ui.LoginPage_PinEnter.text())
             filepathforphoto = filedialog.askopenfilename(initialdir="C:", title="Please Choose A Photo", filetypes=(("jpg files", "*.jpg"),("png file", "*.png")))
             self.ds.EditPhotoPatient(str(filepathforphoto), self.ui.PatientID_edit.text())
-            print(filepathforphoto)
             self.ui.PhotoLabel.setPixmap(QtGui.QPixmap(f"{filepathforphoto}"))
+            self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has edited a Patients photo, who has the ID {self.ui.PatientID_edit.text()}, at {self.currentdate}, Succsesfully")
         except:
             self.mw.error()
 
@@ -315,6 +317,8 @@ class Patients():
         self.ui.PatientComboBox.addItems(sorteddata)
 
     def ChangedPatientComboBox(self):
+        ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
+        ClinLastName = self.ds.MatchingClinicianLastName(self.ui.LoginPage_PinEnter.text())
         if self.ui.PatientComboBox.currentIndex() == 0:
             self.ui.PatientFirstName_Edit.clear()
             self.ui.PatientLastName_edit.clear()
@@ -342,3 +346,4 @@ class Patients():
                 self.ui.PatientDateOfBirthDateEdit.setDateTime(QDateTime(datetime.datetime(int(list[2]), int(list[1]), int(list[0]))))
             if self.ui.PatientIDSpinBox.value() != self.ui.PatientID_edit.text():
                 self.ui.PatientIDSpinBox.setValue(int(self.ui.PatientID_edit.text()))
+                self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has searched for {self.ui.PatientFirstName_Edit.text()} {self.ui.PatientLastName_edit.text()}, by using the ComboBox, at {self.currentdate}, Succsesfully")

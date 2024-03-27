@@ -34,6 +34,7 @@ class NewMainWindow():
         self.PP.PatientComboBox()
         self.CP.ClinicianComboBox()
         self.SD.SalesDataComboBox()
+        self.thesuperlazyfunction()
 
         #Login Page Buttons
         self.ui.EnterButton_LoginPage.clicked.connect(self.Login)
@@ -96,6 +97,21 @@ class NewMainWindow():
         #Sales Data Page Buttons
         self.ui.ExitButton_SalesDataPage.clicked.connect(self.Exit)
         self.ui.SalesDataComboBox.currentIndexChanged.connect(self.SD.SalesUpdate)
+        self.ui.AboutMeButton.clicked.connect(self.AboutMePopUpBox)
+        self.ui.SalesDataHomePageButton.clicked.connect(self.HomePageSelect)
+        self.ui.SalesDataPatientsPageButton.clicked.connect(self.PatientsPageSelect)
+        self.ui.SalesDataAppointmentsPageButton.clicked.connect(self.AppointmentPageSelect)
+        self.ui.SalesDataCliniciansPageButton.clicked.connect(self.ClinicianPageSelect)
+
+
+    #The Function where im too lazy to just remove the little "s"'s from the GUI so i just clear the labels instead
+    def thesuperlazyfunction(self):
+        self.ui.SpaceTimeLabel.clear()
+        self.ui.PaidLabel.clear()
+        self.ui.NotPaidLabel.clear()
+        self.ui.MostBookedClinicianLabel.clear()
+        self.ui.NumberOfAppointmentLabel.clear()
+        self.ui.MoneyMadeLabel.clear()
 
     #Shows the user interface
     def show(self):
@@ -111,7 +127,6 @@ class NewMainWindow():
             self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, Logged out of the app, at {self.currentdate}, Succsesfully")
             self.LogFile.close()
         exit()
-
 
 
     #Pop Up Boxes
@@ -148,7 +163,6 @@ class NewMainWindow():
         text , ok = QInputDialog.getText(self.main_win,'Please Enter your Login Pin','Login Pin = ')
         if ok:
             self.LineEdit.setText(str(text))
-            print(self.LineEdit.text())
             LoginPin = self.LineEdit.text()
             if LoginPin != EnteredLoginPin:
                 msg = QMessageBox()
@@ -161,6 +175,12 @@ class NewMainWindow():
                 return Access
         else:   
             self.OperationUnsuccessful()
+    
+    def AboutMePopUpBox(self):
+        msg = QMessageBox()
+        msg.setWindowTitle("About me!")
+        msg.setText("Thank you for having a look at my IA2!, this code is pretty rough in parts but I tried my best. Please have a look at some other repo's I have on Github, such as my previous Assesments (IA1, FIA3, ...etc) Hopefully this stuff lands me a job somewhere.")
+        msg.exec()
 
 
     #Page Selection Functions

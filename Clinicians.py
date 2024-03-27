@@ -326,10 +326,12 @@ class Clinicians():
 
     def ChangeClinicianPhoto(self):
         try:
+            ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
+            ClinLastName = self.ds.MatchingClinicianLastName(self.ui.LoginPage_PinEnter.text())
             filepathforphoto = filedialog.askopenfilename(initialdir="C:", title="Please Choose A Photo", filetypes=(("jpg files", "*.jpg"),("png file", "*.png")))
             self.ds.EditPhotoClinician(str(filepathforphoto), self.ui.ClinicianIDEdit.text())
-            print(filepathforphoto)
             self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{filepathforphoto}"))
+            self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has edited the photo for Clinician ID {self.ui.ClinicianIDEdit.text()}, at {self.currentdate}, Succsesfully")
         except:
             self.mw.error()
 
@@ -340,6 +342,8 @@ class Clinicians():
         self.ui.ClinicianComboBox.addItems(sorteddata)
 
     def ChangedClinicianComboBox(self):
+        ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
+        ClinLastName = self.ds.MatchingClinicianLastName(self.ui.LoginPage_PinEnter.text())
         if self.ui.ClinicianComboBox.currentIndex() == 0:
             self.ui.ClinicianFirstNameEdit.clear()
             self.ui.ClinicianLastNameEdit.clear()
@@ -368,5 +372,6 @@ class Clinicians():
                 else:
                     self.ui.PhotoLabelClinician.setPixmap(QtGui.QPixmap(f"{i[7]}"))
                 self.ui.costedit.setText(str(i[8]))
+                self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has searched for {self.ui.ClinicianFirstNameEdit.text()} {self.ui.ClinicianLastNameEdit.text()}, by using the Clinician Combo Box, at {self.currentdate}, Succsesfully")
             if self.ui.ClinicianIDSpinBox.value() != self.ui.ClinicianIDEdit.text():
                 self.ui.ClinicianIDSpinBox.setValue(int(self.ui.ClinicianIDEdit.text()))

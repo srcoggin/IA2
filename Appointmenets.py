@@ -35,8 +35,8 @@ class Appointments():
                 self.ui.AppointmentDateEdit.setText(i[1])
                 self.ui.AppointmentLengthEdit.setText(str(i[2]))
                 self.ui.AppointmentPaidEdit.setText(str(i[4]))
-                self.ui.AppointmentClinicianEdit.setText(str(i[5]))
-                self.ui.AppointmentPatientID.setText(str(i[6]))
+                self.ui.AppointmentClinicianEdit.setText(str(i[6]))
+                self.ui.AppointmentPatientID.setText(str(i[5]))
                 self.ui.AppointmentServiceUsed.setText(i[7])
                 self.ui.AppointmentResult.setText(i[3])
                 list = i[1].split('/')
@@ -66,8 +66,8 @@ class Appointments():
                             self.ui.AppointmentDateEdit.setText(i[1])
                             self.ui.AppointmentLengthEdit.setText(str(i[2]))
                             self.ui.AppointmentPaidEdit.setText(str(i[4]))
-                            self.ui.AppointmentClinicianEdit.setText(str(i[5]))
-                            self.ui.AppointmentPatientID.setText(str(i[6]))
+                            self.ui.AppointmentClinicianEdit.setText(str(i[6]))
+                            self.ui.AppointmentPatientID.setText(str(i[5]))
                             self.ui.AppointmentServiceUsed.setText(i[7])
                             self.ui.AppointmentResult.setText(i[3])
                             list = i[1].split('/')
@@ -101,8 +101,8 @@ class Appointments():
                         self.ui.AppointmentDateEdit.setText(i[1])
                         self.ui.AppointmentLengthEdit.setText(str(i[2]))
                         self.ui.AppointmentPaidEdit.setText(str(i[4]))
-                        self.ui.AppointmentClinicianEdit.setText(str(i[5]))
-                        self.ui.AppointmentPatientID.setText(str(i[6]))
+                        self.ui.AppointmentClinicianEdit.setText(str(i[6]))
+                        self.ui.AppointmentPatientID.setText(str(i[5]))
                         self.ui.AppointmentServiceUsed.setText(i[7])
                         self.ui.AppointmentResult.setText(i[3])
                         list = i[1].split('/')
@@ -146,8 +146,8 @@ class Appointments():
                             self.ui.AppointmentDateEdit.setText(i[1])
                             self.ui.AppointmentLengthEdit.setText(str(i[2]))
                             self.ui.AppointmentPaidEdit.setText(str(i[4]))
-                            self.ui.AppointmentClinicianEdit.setText(str(i[5]))
-                            self.ui.AppointmentPatientID.setText(str(i[6]))
+                            self.ui.AppointmentClinicianEdit.setText(str(i[6]))
+                            self.ui.AppointmentPatientID.setText(str(i[5]))
                             self.ui.AppointmentServiceUsed.setText(i[7])
                             self.ui.AppointmentResult.setText(i[3])
                             list = i[1].split('/')
@@ -207,6 +207,8 @@ class Appointments():
         self.ui.AppointmentComboBox.addItems(sorteddata)
 
     def ChangedAppointmentComboBox(self):
+        ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
+        ClinLastName = self.ds.MatchingClinicianLastName(self.ui.LoginPage_PinEnter.text())
         if self.ui.AppointmentComboBox.currentIndex() == 0:
             self.ui.AppointmentIDInput.clear()
             self.ui.AppointmentDateEdit.clear()
@@ -227,14 +229,15 @@ class Appointments():
                 self.ui.AppointmentDateEdit.setText(i[1])
                 self.ui.AppointmentLengthEdit.setText(str(i[2]))
                 self.ui.AppointmentPaidEdit.setText(str(i[4]))
-                self.ui.AppointmentClinicianEdit.setText(str(i[5]))
-                self.ui.AppointmentPatientID.setText(str(i[6]))
+                self.ui.AppointmentClinicianEdit.setText(str(i[6]))
+                self.ui.AppointmentPatientID.setText(str(i[5]))
                 self.ui.AppointmentServiceUsed.setText(i[7])
                 self.ui.AppointmentResult.setText(i[3])
                 list = i[1].split('/')
                 self.ui.AppointmentDateEdit_2.setDateTime(QDateTime(datetime.datetime(int(list[2]), int(list[1]), int(list[0]))))
             if self.ui.AppointmentIDSpinbox.value() != self.ui.AppointmentIDInput.text():
                 self.ui.AppointmentIDSpinbox.setValue(int(self.ui.AppointmentIDInput.text()))
+                self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has searched for an Appointment with the ID {self.ui.AppointmentIDInput.text()}, at {self.currentdate}, Succsesfully")
 
     def EditAppointment(self):
         ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
@@ -248,6 +251,8 @@ class Appointments():
         ServiceUsed = self.ui.AppointmentServiceUsed.text()
         Result = self.ui.AppointmentResult.text()
         MatchingID = self.ds.SearchAllAppointmentID()
+        NewDate = Date.split('/')
+        Year = NewDate[2]
         msg = QMessageBox()
         msg.setText("Are you sure you want to do this?")
         msg.setWindowTitle("Are you sure!")
@@ -265,7 +270,7 @@ class Appointments():
                     if Access == True:
                         try:
                             self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Edited an Appointments Data with the ID {AppointmentID}, at {self.currentdate}, Succsesfully")
-                            self.ds.UpdateAppointmentDetails(AppointmentID, Date, Length, Result, Paid, PatientID, ClinicianID, ServiceUsed)
+                            self.ds.UpdateAppointmentDetails(AppointmentID, Date, Length, Result, Paid, PatientID, ClinicianID, ServiceUsed, Year)
                             self.ds.DeleteAppointment(self.ui.AppointmentIDSpinbox.text())
                             self.ui.AppointmentIDSpinbox.setValue(int(AppointmentID))
                             self.mw.OperationSuccessful()
@@ -292,7 +297,7 @@ class Appointments():
                 Access = self.mw.ClinicianLoginPinPopUpBox(False)
                 if Access == True:
                     self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Edited an Appointments Data with the ID {AppointmentID}, at {self.currentdate}, Succsesfully")
-                    self.ds.UpdateAppointmentDetails(AppointmentID, Date, Length, Result, Paid, PatientID, ClinicianID, ServiceUsed)
+                    self.ds.UpdateAppointmentDetails(AppointmentID, Date, Length, Result, Paid, PatientID, ClinicianID, ServiceUsed, Year)
                     self.ui.AppointmentIDSpinbox.setValue(int(AppointmentID))
                     self.mw.OperationSuccessful()
                     data = [f"({AppointmentID},) Appointment"]
