@@ -356,7 +356,7 @@ class Clinicians():
             self.ui.PhotoLabelClinician.clear()
         else:
             item = self.ui.ClinicianComboBox.currentText()
-            value = [item.split(',')[0][1:]]
+            value = [item.split(':')[1].strip()[0]]
             self.ds.ClinicianSearchByComboBox(value[0])
             ClinicianData = self.ds.ClinicianSearchByComboBox(value[0])
             for i in ClinicianData:

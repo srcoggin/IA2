@@ -331,7 +331,7 @@ class Patients():
             self.ui.PhotoLabel.clear()
         else:
             item = self.ui.PatientComboBox.currentText()
-            value = [item.split(',')[0][1:]]
+            value = [item.split(':')[1].strip()[0]]
             self.ds.PatientSearchByComboBox(value[0])
             PatientData = self.ds.PatientSearchByComboBox(value[0])
             for i in PatientData:

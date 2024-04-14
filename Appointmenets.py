@@ -186,8 +186,10 @@ class Appointments():
                         self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has searched for an Appointment with the ID {AppointmentID}, By Searching for All Paid Appointments, at {self.currentdate}, Succsesfully")
 
     def AddNewAppointment(self):
+        #1. Gathers Clinician details for use in logging interactions
         ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
         ClinLastName = self.ds.MatchingClinicianLastName(self.ui.LoginPage_PinEnter.text())
+        #2. Assigns the QLineEdits to variables for easier handeling
         AppointmentID = self.ui.AppointmentIDInput.text()
         Date = self.ui.AppointmentDateEdit.text()
         Length = self.ui.AppointmentLengthEdit.text()
@@ -198,45 +200,56 @@ class Appointments():
         Result = self.ui.AppointmentResult.text()
         MatchingID = self.ds.SearchAllAppointmentID()
         msg = QMessageBox()
+        #3. gathers conformation from user
         msg.setText("Are you sure you want to do this?")
         msg.setWindowTitle("Are you sure!")
         msg.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
         button_clicked = msg.exec()
         if button_clicked == QMessageBox.Yes:
+                #4. checks to see if there is already an appointment under the ID used
                 if AppointmentID in MatchingID:
                     msg.setText("A Clinician Already exists under this ID...")
                     msg.setWindowTitle("Operation Failed!")
                 else:
                     Access = self.mw.ClinicianLoginPinPopUpBox(False)
                     if Access == True:
+                        #5. if successful, adds all details to data base
                         try:
                             self.ds.NewAppointmentDS(AppointmentID, Date, Length, Result, ClinicianID, ServiceUsed, PatientID, Paid)
+                            #6. writes interaction into .txt file
                             self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Added a new Appointment with the ID {AppointmentID}, at {self.currentdate}, Succsesfully")
                             self.mw.OperationSuccessful()
                             self.ui.AppointmentIDSpinbox.setValue(int(AppointmentID))
                             data = [f"({AppointmentID},) Appointment"]
                             self.ui.AppointmentComboBox.addItems(data)
                         except:
+                            #5.5 this could run if one of the fields of data hasn't been entered
                             msg = QMessageBox()
-                            msg.setText("The Data provided either contains Null info, or the Login-Pin is not unique")
+                            msg.setText("The Data provided either contains Null info")
                             msg.setWindowTitle("This Can't Be Done!")
                             msg.setStandardButtons(QMessageBox.Close)
                             msg.exec()
                     else:
                         self.mw.OperationUnsuccessful()
+        #7. wraps up function by closing all pop up boxes
         elif button_clicked == QMessageBox.No:
             QMessageBox.close
         else:
             QMessageBox.close
 
     def AppointmentComboBox(self):
+        #1. gathers data from database
         data = self.ds.AppointmentDisplayComboBox()
+        #2. lists the IDs from lowest to highest
         sorteddata = sorted(data, reverse=False)
+        #3. adds them to the combobox
         self.ui.AppointmentComboBox.addItems(sorteddata)
 
     def ChangedAppointmentComboBox(self):
+        #1. gathers clinician details for logging purposes
         ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
         ClinLastName = self.ds.MatchingClinicianLastName(self.ui.LoginPage_PinEnter.text())
+        #2. checks to see if the combobox value is 0 (this clears the all the QLineEdits)
         if self.ui.AppointmentComboBox.currentIndex() == 0:
             self.ui.AppointmentIDInput.clear()
             self.ui.AppointmentDateEdit.clear()
@@ -248,11 +261,13 @@ class Appointments():
             self.ui.AppointmentResult.clear()
             self.ui.AppointmentIDSpinbox.setValue(0)
         else:
+            #3. pulls the first value (the appointment ID)
             item = self.ui.AppointmentComboBox.currentText()
-            value = [item.split(',')[0][1:]]
+            value = [item.split(':')[1].strip()[0]]
             self.ds.AppointmentSearchByComboBox(value[0])
             AppointmentData = self.ds.AppointmentSearchByComboBox(value[0])
             for i in AppointmentData:
+                #4. populates the feilds based on the ID selected
                 self.ui.AppointmentIDInput.setText(str(i[0]))
                 self.ui.AppointmentDateEdit.setText(i[1])
                 self.ui.AppointmentLengthEdit.setText(str(i[2]))
@@ -264,7 +279,9 @@ class Appointments():
                 list = i[1].split('/')
                 self.ui.AppointmentDateEdit_2.setDateTime(QDateTime(datetime.datetime(int(list[2]), int(list[1]), int(list[0]))))
             if self.ui.AppointmentIDSpinbox.value() != self.ui.AppointmentIDInput.text():
+                #5. corrects the ID spinbox
                 self.ui.AppointmentIDSpinbox.setValue(int(self.ui.AppointmentIDInput.text()))
+                #6. logs the interaction in the .txt file
                 self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has searched for an Appointment with the ID {self.ui.AppointmentIDInput.text()}, at {self.currentdate}, Succsesfully")
 
     def EditAppointment(self):

@@ -426,6 +426,7 @@ class DataStore:
         List = self.cursor.fetchall()
         return List
 
+    #Combobox functions
     def AppointmentDisplayComboBox(self):
         self.cursor.execute(
             """
@@ -498,6 +499,7 @@ class DataStore:
         row = self.cursor.fetchall()
         return row  
     
+    #Random update appointment function
     def UpdateAppointmentDetails(self, AppointmentID, Date, Length, Result, Paid, PatientID, CliniciansID, ServiceUsed, Year):
         self.cursor.execute(
             """

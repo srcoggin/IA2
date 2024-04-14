@@ -70,3 +70,54 @@ Will Coggins, has logged into the app at 2024-04-14 10:36:41.406126
 Will Coggins, Logged out of the app, at 2024-04-14 10:36:41.406126, Succsesfully
 Will Coggins, has logged into the app at 2024-04-14 10:37:15.317209
 Will Coggins, Logged out of the app, at 2024-04-14 10:37:15.317209, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 15:51:33.638956
+Will Coggins, Logged out of the app, at 2024-04-14 15:51:33.638956, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 15:52:06.704750
+Will Coggins, has searched for an Appointment with the ID , at 2024-04-14 15:52:06.977720, Succsesfully
+Will Coggins, has searched for an Appointment with the ID , at 2024-04-14 15:52:06.977720, Succsesfully
+Will Coggins, has searched for an Appointment with the ID , at 2024-04-14 15:52:06.977720, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-14 15:52:06.704750, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 15:52:36.717434
+Will Coggins, has searched for an Appointment with the ID , at 2024-04-14 15:52:37.013661, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-14 15:52:36.717434, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 15:53:10.378822
+Will Coggins, has searched for an Appointment with the ID , at 2024-04-14 15:53:10.688425, Succsesfully
+Will Coggins, has searched for an Appointment with the ID , at 2024-04-14 15:53:10.688425, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-14 15:53:10.378822, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 15:54:15.825479
+Will Coggins, has searched for an Appointment with the ID , at 2024-04-14 15:54:16.090349, Succsesfully
+Will Coggins, has searched for an Appointment with the ID , at 2024-04-14 15:54:16.090349, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-14 15:54:15.825479, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 15:54:31.422656
+Will Coggins, has searched for an Appointment with the ID , at 2024-04-14 15:54:31.728879, Succsesfully
+Will Coggins, has searched for an Appointment with the ID , at 2024-04-14 15:54:31.728879, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-14 15:54:31.422656, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 15:54:50.330931
+Will Coggins, has searched for an Appointment with the ID , at 2024-04-14 15:54:50.619501, Succsesfully
+Will Coggins, has searched for an Appointment with the ID , at 2024-04-14 15:54:50.619501, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-14 15:54:50.330931, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 15:55:46.602127
+Will Coggins, has searched for an Appointment with the ID , at 2024-04-14 15:55:46.894126, Succsesfully
+Will Coggins, has searched for an Appointment with the ID , at 2024-04-14 15:55:46.894126, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-14 15:55:46.602127, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 15:56:26.213166
+Will Coggins, has searched for an Appointment with the ID , at 2024-04-14 15:56:26.486625, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-14 15:56:26.213166, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 15:58:13.230649
+Will Coggins, has searched for an Appointment with the ID , at 2024-04-14 15:58:13.512506, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-14 15:58:13.230649, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 15:58:28.952279
+Will Coggins, has searched for an Appointment with the ID , at 2024-04-14 15:58:29.231433, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-14 15:58:28.952279, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 15:59:06.838821
+Will Coggins, has searched for an Appointment with the ID 1, at 2024-04-14 15:59:07.111234, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-14 15:59:06.838821, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 16:00:37.152990
+Will Coggins, has searched the sales data of the year: 2006, at 2024-04-14 16:00:37.443989, successfully
+Will Coggins, has searched for Sam Heinz, by using the Clinician Combo Box, at 2024-04-14 16:00:37.442989, Succsesfully
+Will Coggins, has searched for Coreys Jenkinsss, By Scrolling through the SpinBox, at 2024-04-14 16:00:37.442989, Succsesfully
+Will Coggins, has searched for Coreys Jenkinsss, by using the ComboBox, at 2024-04-14 16:00:37.442989, Succsesfully
+Will Coggins, has searched for Coreys Jenkinsss, By Scrolling through the SpinBox, at 2024-04-14 16:00:37.442989, Succsesfully
+Will Coggins, has searched for Coreys Jenkinsss, by using the ComboBox, at 2024-04-14 16:00:37.442989, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-14 16:00:37.152990, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 16:46:26.283519
