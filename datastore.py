@@ -435,7 +435,7 @@ class DataStore:
         List = self.cursor.fetchall()
         Display = []
         for i in List:
-            Display += [f"{i} Appointment"]
+            Display += [f"ID: {i[0]} Appointment"]
         return Display
     
     def PatientDisplayComboBox(self):
@@ -447,7 +447,7 @@ class DataStore:
         List = self.cursor.fetchall()
         Display = []
         for i in List:
-            Display += [f"{i} Patient"]
+            Display += [f"ID: {i[0]} Patient"]
         return Display
     
     def ClinicianDisplayComboBox(self):
@@ -459,7 +459,7 @@ class DataStore:
         List = self.cursor.fetchall()
         Display = []
         for i in List:
-            Display += [f"{i} Clinician"]
+            Display += [f"ID: {i[0]} Clinician"]
         return Display
     
     def SalesDisplayComboBox(self):

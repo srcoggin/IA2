@@ -22,13 +22,16 @@ class Appointments():
         self.LogFile = Log
 
     def SearchAppointmentsByID(self):
+        # 1. Gathers the Clinicians details to write into the log file
         ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
         ClinLastName = self.ds.MatchingClinicianLastName(self.ui.LoginPage_PinEnter.text())
         ID = self.ui.SearchByAppointmentIDInput.text()
         IDs = self.ds.SearchAllAppointmentID()
+        # 2. Checks to see if the inputed ID is in the database
         if ID not in IDs:
             self.mw.error()
         else:
+            # 3. Prints the data into the following Line Edits
             AppointmentData = self.ds.SelectMatchingAppointment(int(self.ui.SearchByAppointmentIDInput.text()))
             for i in AppointmentData:
                 self.ui.AppointmentIDInput.setText(str(i[0]))
@@ -41,25 +44,32 @@ class Appointments():
                 self.ui.AppointmentResult.setText(i[3])
                 list = i[1].split('/')
                 self.ui.AppointmentDateEdit_2.setDateTime(QDateTime(datetime.datetime(int(list[2]), int(list[1]), int(list[0]))))
+            # 4. Checks to see if QSpinbox Value matches current Appointment Selected
             if self.ui.AppointmentIDSpinbox.value() != self.ui.AppointmentIDInput.text():
                 self.ui.AppointmentIDSpinbox.setValue(int(self.ui.AppointmentIDInput.text()))
             AppointmentID = self.ui.AppointmentIDInput.text()
+            # 5. Writes interaction into log file
             self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has searched for an Appointment with the ID {AppointmentID}, By Searching for their ID, at {self.currentdate}, Succsesfully")
 
     def SearchByDate(self):
+        # 1. Gathers the Clinicians details to write into the log file
         ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
         ClinLastName = self.ds.MatchingClinicianLastName(self.ui.LoginPage_PinEnter.text())
         Date = self.ui.AppointmentSearchByDateInput.text()
         AllDates = self.ds.SearchAllAppointmentDates()
+        # 2. Checks to see if the data is present in the database
         if Date not in AllDates:
             self.mw.error()
         else:
+            # 3.Checks to see if two or more appointments hold the same date
             for i in range(1):
                 if Date in AllDates:
                     NumbOfMatches = AllDates.count(Date)
                     if NumbOfMatches > 1:
+                        # 3.5 if there is more than one appointment with the same date, i get lazy
                         self.mw.MoreThanTwoOfThem()
                     else:
+                        #4. populates the field with the data pulled from matching date in database
                         AppointmentData = self.ds.SelectMatchingAppointmentDate(self.ui.AppointmentSearchByDateInput.text())
                         for i in AppointmentData:
                             self.ui.AppointmentIDInput.setText(str(i[0]))
@@ -72,29 +82,36 @@ class Appointments():
                             self.ui.AppointmentResult.setText(i[3])
                             list = i[1].split('/')
                             self.ui.AppointmentDateEdit_2.setDateTime(QDateTime(datetime.datetime(int(list[2]), int(list[1]), int(list[0]))))
+                        #5. corrects the QSpinBox to make sure the value matches the Appointment selected
                         if self.ui.AppointmentIDSpinbox.value() != self.ui.AppointmentIDInput.text():
                             self.ui.AppointmentIDSpinbox.setValue(int(self.ui.AppointmentIDInput.text()))
                         AppointmentID = self.ui.AppointmentIDInput.text()
+                        #6. logs interaction in the log.txt file
                         self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has searched for an Appointment with the ID {AppointmentID}, By Searching for its date, at {self.currentdate}, Succsesfully")
 
 
 
     def AppointmentSpinBoxSelected(self):
+        #1. Gathers Clinician details for use in logging interactions
         ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
         ClinLastName = self.ds.MatchingClinicianLastName(self.ui.LoginPage_PinEnter.text())
+        #2. checks to see if the value selected is a valid ID
         if self.ui.AppointmentIDSpinbox.value() == 0:
             pass
         else:
             if self.ui.AppointmentIDSpinbox.value() != self.ui.AppointmentIDInput.text():
                 ID = str(self.ui.AppointmentIDSpinbox.value())
                 IDs = self.ds.SearchAllAppointmentID()
+                #3. checks to see if the ID exists in the database
                 if ID not in IDs:
                     self.mw.error()
                     if self.ui.AppointmentIDInput.text() == "":
+                        #3.5 just resets the spinbox back to its previous value if that ID does not exist
                         self.ui.AppointmentIDSpinbox.setValue(int(self.ui.AppointmentIDSpinbox.value()) -1)
                     else:
                         self.ui.AppointmentIDSpinbox.setValue(int(self.ui.AppointmentIDInput.text()))
                 else:
+                    #4. populates the fields with the relevant data
                     AppointmentData = self.ds.SelectMatchingAppointment(self.ui.AppointmentIDSpinbox.value())
                     for i in AppointmentData:
                         self.ui.AppointmentIDInput.setText(str(i[0]))
@@ -107,39 +124,49 @@ class Appointments():
                         self.ui.AppointmentResult.setText(i[3])
                         list = i[1].split('/')
                         self.ui.AppointmentDateEdit_2.setDateTime(QDateTime(datetime.datetime(int(list[2]), int(list[1]), int(list[0]))))
+                    #5. matches the spinbox value with the correct value? which it should be correct anyway?? but... whatever it stays
                     if self.ui.AppointmentIDSpinbox.value() != self.ui.AppointmentIDInput.text():
                         self.ui.AppointmentIDSpinbox.setValue(int(self.ui.AppointmentIDInput.text()))
                     AppointmentID = self.ui.AppointmentIDInput.text()
+                    #6. logs interaction into the log file
                     self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has searched for an Appointment with the ID {AppointmentID}, By Scrolling through the SpinBox, at {self.currentdate}, Succsesfully")
 
     def ChangeDateTimeToLineEdit(self):
             try:
+                #1. just changes the date so that the QDateTime Widget and QLineEdit show the same value
                 LineEdit = self.ui.AppointmentDateEdit.text().split('/')
                 self.ui.AppointmentDateEdit_2.setDateTime(QDateTime(datetime.datetime(int(LineEdit[2]), int(LineEdit[1]), int(LineEdit[0]))))
             except:
+                #2. this only is called when the value in the QLineEdit is before 17/12/1758
                 print("No Can Do!!")
     
     def LineEditToChangeDate(self):
         try:
+            #1. just changes the date so that the QDateTime Widget and QLineEdit show the same value
             DateEdit = str(self.ui.AppointmentDateEdit_2.text())
             self.ui.AppointmentDateEdit.setText(DateEdit)
         except:
+            #2. this only is called when the value in the QLineEdit is before 17/12/1758
             print("Not A Chance!")
         
     def SearchByPaid(self):
+        #1. Gathers Clinician details for use in logging interactions
         ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
         ClinLastName = self.ds.MatchingClinicianLastName(self.ui.LoginPage_PinEnter.text())
         Paid = self.ui.AppointmentSearchByPaidInput.text()
         AllPaid = self.ds.SearchAllAppointmentPaid()
+        #2. checks to see if there are Appointments that have been paid
         if Paid not in AllPaid:
             self.mw.error()
         else:
             for i in range(1):
                 if Paid in AllPaid:
                     NumbOfMatches = AllPaid.count(Paid)
+                    #3. checks if there is more than two appointments paid for. (will is lazy)
                     if NumbOfMatches > 1:
                         self.mw.MoreThanTwoOfThem()
                     else:
+                        #4. populates the fields with the relevant data
                         AppointmentData = self.ds.SelectMatchingAppointmentPaid(self.ui.AppointmentSearchByPaidInput.text())
                         for i in AppointmentData:
                             self.ui.AppointmentIDInput.setText(str(i[0]))
@@ -155,6 +182,7 @@ class Appointments():
                         if self.ui.AppointmentIDSpinbox.value() != self.ui.AppointmentIDInput.text():
                             self.ui.AppointmentIDSpinbox.setValue(int(self.ui.AppointmentIDInput.text()))
                         AppointmentID = self.ui.AppointmentIDInput.text()
+                        #5. logs interaction in .txt file
                         self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has searched for an Appointment with the ID {AppointmentID}, By Searching for All Paid Appointments, at {self.currentdate}, Succsesfully")
 
     def AddNewAppointment(self):

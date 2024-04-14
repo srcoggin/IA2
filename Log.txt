@@ -58,3 +58,15 @@ Will Coggins, Logged out of the app, at 2024-03-28 09:20:58.391830, Succsesfully
 Will Coggins, has logged into the app at 2024-03-28 09:23:06.202949
 Will Coggins, has searched the sales data of the year: 2020, at 2024-03-28 09:23:07.066375, successfully
 Will Coggins, Logged out of the app, at 2024-03-28 09:23:06.202949, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 10:07:38.709827
+Will Coggins, has searched the sales data of the year: 2006, at 2024-04-14 10:07:39.654303, successfully
+Will Coggins, has searched the sales data of the year: 1880, at 2024-04-14 10:07:39.654303, successfully
+Will Coggins, has searched for an Appointment with the ID 1, By Scrolling through the SpinBox, at 2024-04-14 10:07:39.653306, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 1, at 2024-04-14 10:07:39.653306, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-14 10:07:38.709827, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 10:36:24.245761
+Will Coggins, Logged out of the app, at 2024-04-14 10:36:24.245761, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 10:36:41.406126
+Will Coggins, Logged out of the app, at 2024-04-14 10:36:41.406126, Succsesfully
+Will Coggins, has logged into the app at 2024-04-14 10:37:15.317209
+Will Coggins, Logged out of the app, at 2024-04-14 10:37:15.317209, Succsesfully
