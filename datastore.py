@@ -128,13 +128,13 @@ class DataStore:
         )
         self.db.commit()
 
-    def UpdateDetails(self, FirstName, LastName, Address, PatientID, Weight, Height, DateOfBirth):
+    def UpdateDetails(self, FirstName, LastName, Address, PatientID, Weight, Height, DateOfBirth, Photo):
         self.cursor.execute(
             """
-                REPLACE INTO Patients (ID, FirstName, Lastname, Address, Weight, Height, DateOfBirth)
-                VALUES (:ID, :FirstName, :LastName, :Address, :Weight, :Height, :DateOfBirth)
+                REPLACE INTO Patients (ID, FirstName, Lastname, Address, Weight, Height, DateOfBirth, Photo)
+                VALUES (:ID, :FirstName, :LastName, :Address, :Weight, :Height, :DateOfBirth, :Photo)
             """,
-            {"ID": PatientID, "FirstName": FirstName, "LastName": LastName, "Address": Address, "Weight": Weight, "Height": Height, "DateOfBirth": DateOfBirth}
+            {"ID": PatientID, "FirstName": FirstName, "LastName": LastName, "Address": Address, "Weight": Weight, "Height": Height, "DateOfBirth": DateOfBirth, "Photo": Photo}
         )
         self.db.commit()
     
@@ -158,7 +158,19 @@ class DataStore:
         )
         self.db.commit()
     
-
+    def PullingPhotoBecauseMyShittyCodeKeepsBuggingButForPatientsThisTime(self,ID):
+        self.cursor.execute(
+            '''
+                SELECT Photo FROM Patients
+                WHERE ID = :ID
+            ''',
+            {"ID": ID}
+        )
+        List = self.cursor.fetchall()
+        Photo = ""
+        for i in List:
+                Photo += "{}".format(i[0])
+        return Photo
     
     
     #Login Page Functions
@@ -282,13 +294,13 @@ class DataStore:
         )
         self.db.commit()
 
-    def UpdateClinicianDetails(self, FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services, Cost):
+    def UpdateClinicianDetails(self, FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services, Cost, Photo):
         self.cursor.execute(
             """
-                REPLACE INTO Clinicians (ID, FirstName, Lastname, Department, Role, LoginPin, ServicesProvided, Cost)
-                VALUES (:ID, :FirstName, :LastName, :Department, :Role, :LoginPin, :Services, :Cost)
+                REPLACE INTO Clinicians (ID, FirstName, Lastname, Department, Role, LoginPin, ServicesProvided, Cost, Photo)
+                VALUES (:ID, :FirstName, :LastName, :Department, :Role, :LoginPin, :Services, :Cost, :Photo)
             """,
-            {"ID": ClinicianID, "FirstName": FirstName, "LastName": LastName, "Department": Department, "Role": Role, "LoginPin": LoginPin, "Services": Services, "Cost": Cost}
+            {"ID": ClinicianID, "FirstName": FirstName, "LastName": LastName, "Department": Department, "Role": Role, "LoginPin": LoginPin, "Services": Services, "Cost": Cost, "Photo": Photo}
         )
         self.db.commit()
 
@@ -302,6 +314,20 @@ class DataStore:
             {"ID": ClinicianID, "FirstName": FirstName, "LastName": LastName, "Department": Department, "Role": Role, "LoginPin": LoginPin, "Services": Services, "Cost": Cost}
         )
         self.db.commit()
+
+    def PullingPhotoBecauseMyShittyCodeKeepsBugging(self,ID):
+        self.cursor.execute(
+            '''
+                SELECT Photo FROM Clinicians
+                WHERE ID = :ID
+            ''',
+            {"ID": ID}
+        )
+        List = self.cursor.fetchall()
+        Photo = ""
+        for i in List:
+                Photo += "{}".format(i[0])
+        return Photo
 
     #Appointment Functions
     def SearchAllAppointmentID(self):

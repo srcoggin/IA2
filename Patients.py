@@ -198,6 +198,7 @@ class Patients():
         Height = self.ui.PatientHeight_Edit.text()
         MatchingID = self.ds.SearchAllPatientID()
         DateOfBirth = self.ui.PatientDateOfBirthDateEdit.text()
+        Photo = self.ds.PullingPhotoBecauseMyShittyCodeKeepsBuggingButForPatientsThisTime(PatientID)
         msg = QMessageBox()
         msg.setText("Are you sure you want to do this?")
         msg.setWindowTitle("Are you sure!")
@@ -213,15 +214,22 @@ class Patients():
                 if button_clicked == QMessageBox.Yes:
                     Access = self.mw.ClinicianLoginPinPopUpBox(False)
                     if Access == True:
-                        self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Edited {FirstName} {LastName}'s Data, at {self.currentdate}, Succsesfully")
-                        self.ds.UpdateDetails(FirstName, LastName, Address, PatientID, Weight, Height, DateOfBirth)
-                        self.ds.DeletePatient(self.ui.PatientIDSpinBox.text())
-                        self.mw.OperationSuccessful()
-                        data = [f"({PatientID},) Patient"]
-                        self.ui.PatientComboBox.addItems(data)
-                        self.ui.PatientComboBox.setCurrentIndex(int(PatientID))
-                        index = self.ui.PatientComboBox.currentIndex()
-                        self.ui.PatientComboBox.removeItem(index)
+                        try:
+                            self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Edited {FirstName} {LastName}'s Data, at {self.currentdate}, Succsesfully")
+                            self.ds.UpdateDetails(FirstName, LastName, Address, PatientID, Weight, Height, DateOfBirth, Photo)
+                            self.ds.DeletePatient(self.ui.PatientIDSpinBox.text())
+                            self.mw.OperationSuccessful()
+                            self.ui.PatientComboBox.clear()
+                            self.ui.PatientComboBox.addItem("Please Select a Patient")
+                            data = self.ds.PatientDisplayComboBox()
+                            sorteddata = sorted(data, reverse=False)
+                            self.ui.PatientComboBox.addItems(sorteddata)
+                        except:
+                            msg = QMessageBox()
+                            msg.setText("The Data provided contains Null info")
+                            msg.setWindowTitle("This Can't Be Done!")
+                            msg.setStandardButtons(QMessageBox.Close)
+                            msg.exec()
                     else:
                         self.mw.OperationUnsuccessful()
                 elif button_clicked == QMessageBox.No:
@@ -230,18 +238,36 @@ class Patients():
                 else:
                     QMessageBox.close
                     self.mw.OperationUnsuccessful()
+                if self.ui.PatientComboBox.currentIndex() != 0:
+                    Access = self.mw.ClinicianLoginPinPopUpBox(False)
+                    if Access == True:
+                        try:
+                            self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Edited {FirstName} {LastName}'s Data, at {self.currentdate}, Succsesfully")
+                            self.ds.UpdateDetails(FirstName, LastName, Address, PatientID, Weight, Height, DateOfBirth, Photo)
+                            self.mw.OperationSuccessful()
+                            self.ui.PatientComboBox.clear()
+                            self.ui.PatientComboBox.addItem("Please Select a Patient")
+                            data = self.ds.PatientDisplayComboBox()
+                            sorteddata = sorted(data, reverse=False)
+                            self.ui.PatientComboBox.addItems(sorteddata)
+                        except:
+                            msg = QMessageBox()
+                            msg.setText("The Data provided contains Null info")
+                            msg.setWindowTitle("This Can't Be Done!")
+                            msg.setStandardButtons(QMessageBox.Close)
+                            msg.exec()
             else:
                 Access = self.mw.ClinicianLoginPinPopUpBox(False)
                 if Access == True:
                     try:
-                        self.ds.UpdateDetails(FirstName, LastName, Address, PatientID, Weight, Height, DateOfBirth)
+                        self.ds.UpdateDetails(FirstName, LastName, Address, PatientID, Weight, Height, DateOfBirth, Photo)
                         self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Edited {FirstName} {LastName}'s Data, at {self.currentdate}, Succsesfully")
                         self.mw.OperationSuccessful()
-                        data = [f"({PatientID},) Patient"]
-                        self.ui.PatientComboBox.addItems(data)
-                        self.ui.PatientComboBox.setCurrentIndex(int(PatientID))
-                        index = self.ui.PatientComboBox.currentIndex()
-                        self.ui.PatientComboBox.removeItem(index)
+                        self.ui.PatientComboBox.clear()
+                        self.ui.PatientComboBox.addItem("Please Select a Patient")
+                        data = self.ds.PatientDisplayComboBox()
+                        sorteddata = sorted(data, reverse=False)
+                        self.ui.PatientComboBox.addItems(sorteddata)
                     except:
                         msg = QMessageBox()
                         msg.setText("The Data provided contains Null info")
@@ -282,7 +308,7 @@ class Patients():
                             self.ds.NewPatientDS(FirstName, LastName, PatientID, Weight, Height, Address, DateOfBirth)
                             self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Added a new Patient, {FirstName} {LastName}, at {self.currentdate}, Succsesfully")
                             self.mw.OperationSuccessful()
-                            data = [f"({PatientID},) Patient"]
+                            data = [f"ID: {PatientID} Patient"]
                             self.ui.PatientComboBox.addItems(data)
                         except:
                             msg = QMessageBox()
@@ -298,10 +324,15 @@ class Patients():
             QMessageBox.close
 
     def ChangeDateTimeToLineEdit(self):
-        try:
-            LineEdit = self.ui.PatientDateOfBirthEdit.text().split('/')
-            self.ui.PatientDateOfBirthDateEdit.setDateTime(QDateTime(datetime.datetime(int(LineEdit[2]), int(LineEdit[1]), int(LineEdit[0]))))
-        except:
+        if self.ui.PatientDateOfBirthEdit.text() == "":
+            pass
+        elif self.ui.PatientDateOfBirthEdit.text() != "":
+            try:
+                LineEdit = self.ui.PatientDateOfBirthEdit.text().split('/')
+                self.ui.PatientDateOfBirthDateEdit.setDateTime(QDateTime(datetime.datetime(int(LineEdit[2]), int(LineEdit[1]), int(LineEdit[0]))))
+            except:
+                print("No Can Do!!")
+        else:
             print("No Can Do!!")
     
     def LineEditToChangeDate(self):
@@ -319,31 +350,36 @@ class Patients():
     def ChangedPatientComboBox(self):
         ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
         ClinLastName = self.ds.MatchingClinicianLastName(self.ui.LoginPage_PinEnter.text())
-        if self.ui.PatientComboBox.currentIndex() == 0:
-            self.ui.PatientFirstName_Edit.clear()
-            self.ui.PatientLastName_edit.clear()
-            self.ui.PatientAddress_edit.clear()
-            self.ui.PatientID_edit.clear()
-            self.ui.PatientHeight_Edit.clear()
-            self.ui.PatientWeight_Edit.clear()
-            self.ui.PatientIDSpinBox.setValue(0)
-            self.ui.PatientDateOfBirthEdit.clear()
-            self.ui.PhotoLabel.clear()
+        if self.ui.PatientComboBox.count() == 0:
+            pass
+        elif self.ui.PatientComboBox.count() != 0:
+            if self.ui.PatientComboBox.currentIndex() == 0:
+                self.ui.PatientFirstName_Edit.clear()
+                self.ui.PatientLastName_edit.clear()
+                self.ui.PatientAddress_edit.clear()
+                self.ui.PatientID_edit.clear()
+                self.ui.PatientHeight_Edit.clear()
+                self.ui.PatientWeight_Edit.clear()
+                self.ui.PatientIDSpinBox.setValue(0)
+                self.ui.PatientDateOfBirthEdit.clear()
+                self.ui.PhotoLabel.clear()
+            else:
+                item = self.ui.PatientComboBox.currentText()
+                value = [item.split(':')[1].strip()[0]]
+                self.ds.PatientSearchByComboBox(value[0])
+                PatientData = self.ds.PatientSearchByComboBox(value[0])
+                for i in PatientData:
+                    self.ui.PatientFirstName_Edit.setText(i[1])
+                    self.ui.PatientLastName_edit.setText(i[2])
+                    self.ui.PatientAddress_edit.setText(str(i[5]))
+                    self.ui.PatientID_edit.setText(str(i[0]))
+                    self.ui.PatientHeight_Edit.setText(str(i[3]))
+                    self.ui.PatientWeight_Edit.setText(str(i[4]))
+                    self.ui.PatientDateOfBirthEdit.setText(i[7])
+                    list = i[7].split('/')
+                    self.ui.PatientDateOfBirthDateEdit.setDateTime(QDateTime(datetime.datetime(int(list[2]), int(list[1]), int(list[0]))))
+                if self.ui.PatientIDSpinBox.value() != self.ui.PatientID_edit.text():
+                    self.ui.PatientIDSpinBox.setValue(int(self.ui.PatientID_edit.text()))
+                    self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has searched for {self.ui.PatientFirstName_Edit.text()} {self.ui.PatientLastName_edit.text()}, by using the ComboBox, at {self.currentdate}, Succsesfully")
         else:
-            item = self.ui.PatientComboBox.currentText()
-            value = [item.split(':')[1].strip()[0]]
-            self.ds.PatientSearchByComboBox(value[0])
-            PatientData = self.ds.PatientSearchByComboBox(value[0])
-            for i in PatientData:
-                self.ui.PatientFirstName_Edit.setText(i[1])
-                self.ui.PatientLastName_edit.setText(i[2])
-                self.ui.PatientAddress_edit.setText(str(i[5]))
-                self.ui.PatientID_edit.setText(str(i[0]))
-                self.ui.PatientHeight_Edit.setText(str(i[3]))
-                self.ui.PatientWeight_Edit.setText(str(i[4]))
-                self.ui.PatientDateOfBirthEdit.setText(i[7])
-                list = i[7].split('/')
-                self.ui.PatientDateOfBirthDateEdit.setDateTime(QDateTime(datetime.datetime(int(list[2]), int(list[1]), int(list[0]))))
-            if self.ui.PatientIDSpinBox.value() != self.ui.PatientID_edit.text():
-                self.ui.PatientIDSpinBox.setValue(int(self.ui.PatientID_edit.text()))
-                self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has searched for {self.ui.PatientFirstName_Edit.text()} {self.ui.PatientLastName_edit.text()}, by using the ComboBox, at {self.currentdate}, Succsesfully")
+            print("shit, we broke it")
