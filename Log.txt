@@ -337,3 +337,66 @@ Will Coggins, has Edited Coreys Jenkinsss's Data, at 2024-04-16 18:36:32.988066,
 Will Coggins, has searched for Coreys Jenkinsss, By Scrolling through the SpinBox, at 2024-04-16 18:36:32.988066, Succsesfully
 Will Coggins, has searched for Coreys Jenkinsss, by using the ComboBox, at 2024-04-16 18:36:32.988066, Succsesfully
 Will Coggins, Logged out of the app, at 2024-04-16 18:36:32.613698, Succsesfully
+Will Coggins, has logged into the app at 2024-04-17 10:47:20.672681
+Will Coggins, has searched for Sam Heinz, by using the Clinician Combo Box, at 2024-04-17 10:47:21.314691, Succsesfully
+Will Coggins, has searched for Sam Heinz, By Scrolling through the SpinBox, at 2024-04-17 10:47:21.314691, Succsesfully
+Will Coggins, has searched for Will Coggins, by using the Clinician Combo Box, at 2024-04-17 10:47:21.314691, Succsesfully
+Will Coggins, has searched for Will Coggins, By Scrolling through the SpinBox, at 2024-04-17 10:47:21.314691, Succsesfully
+Will Coggins, has edited the photo for Clinician ID , at 2024-04-17 10:47:21.314691, Succsesfully
+Will Coggins, has searched for Sam Heinz, by using the Clinician Combo Box, at 2024-04-17 10:47:21.314691, Succsesfully
+Will Coggins, has searched for Sam Heinz, By Scrolling through the SpinBox, at 2024-04-17 10:47:21.314691, Succsesfully
+Will Coggins, has searched for Will Coggins, by using the Clinician Combo Box, at 2024-04-17 10:47:21.314691, Succsesfully
+Will Coggins, has searched for Will Coggins, By Scrolling through the SpinBox, at 2024-04-17 10:47:21.314691, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-17 10:47:20.672681, Succsesfully
+Will Coggins, has logged into the app at 2024-04-17 10:48:35.605392
+Will Coggins, has searched for Coreys Jenkinsss, By Scrolling through the SpinBox, at 2024-04-17 10:48:35.947852, Succsesfully
+Will Coggins, has searched for Coreys Jenkinsss, by using the ComboBox, at 2024-04-17 10:48:35.947852, Succsesfully
+Will Coggins, has searched for Will Coggins, by using the Clinician Combo Box, at 2024-04-17 10:48:35.947852, Succsesfully
+Will Coggins, has searched for Will Coggins, By Scrolling through the SpinBox, at 2024-04-17 10:48:35.947852, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 2, By Scrolling through the SpinBox, at 2024-04-17 10:48:35.947852, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 2, at 2024-04-17 10:48:35.947852, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 1, By Scrolling through the SpinBox, at 2024-04-17 10:48:35.947852, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 1, at 2024-04-17 10:48:35.947852, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 3, By Scrolling through the SpinBox, at 2024-04-17 10:48:35.947852, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 3, at 2024-04-17 10:48:35.947852, Succsesfully
+Will Coggins, has searched the sales data of the year: 2002, at 2024-04-17 10:48:35.947852, successfully
+Will Coggins, has searched the sales data of the year: 2020, at 2024-04-17 10:48:35.947852, successfully
+Will Coggins, has searched the sales data of the year: 2006, at 2024-04-17 10:48:35.947852, successfully
+Will Coggins, has searched for clopp slopp, by using the Clinician Combo Box, at 2024-04-17 10:48:35.947852, Succsesfully
+Will Coggins, has searched for clopp slopp, By Scrolling through the SpinBox, at 2024-04-17 10:48:35.947852, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-17 10:48:35.605392, Succsesfully
+Will Coggins, has logged into the app at 2024-04-17 10:50:20.083070
+Will Coggins, has searched for Sam Heinz, by using the Clinician Combo Box, at 2024-04-17 10:50:20.422034, Succsesfully
+Will Coggins, has searched for Sam Heinz, By Scrolling through the SpinBox, at 2024-04-17 10:50:20.422034, Succsesfully
+Will Coggins, has searched for clopp slopp, by using the Clinician Combo Box, at 2024-04-17 10:50:20.422034, Succsesfully
+Will Coggins, has searched for clopp slopp, By Scrolling through the SpinBox, at 2024-04-17 10:50:20.422034, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-17 10:50:20.083070, Succsesfully
+Will Coggins, has logged into the app at 2024-04-17 10:51:13.039679
+Will Coggins, has searched for Coreys Jenkinsss, By Scrolling through the SpinBox, at 2024-04-17 10:51:13.459548, Succsesfully
+Will Coggins, has searched for Coreys Jenkinsss, by using the ComboBox, at 2024-04-17 10:51:13.459548, Succsesfully
+Will Coggins, has searched for Coreys Jenkinsss, By Scrolling through the SpinBox, at 2024-04-17 10:51:13.459548, Succsesfully
+Will Coggins, has searched for Coreys Jenkinsss, by using the ComboBox, at 2024-04-17 10:51:13.459548, Succsesfully
+Will Coggins, has searched for clopp slopp, by using the Clinician Combo Box, at 2024-04-17 10:51:13.459548, Succsesfully
+Will Coggins, has searched for clopp slopp, By Scrolling through the SpinBox, at 2024-04-17 10:51:13.459548, Succsesfully
+Will Coggins, has Added a new Patient, clopp slopp, at 2024-04-17 10:51:13.459548, Succsesfully
+Will Coggins, has Edited clopp slopp's Data, at 2024-04-17 10:51:13.459548, Succsesfully
+Will Coggins, has searched for clopp slopp, by using the Clinician Combo Box, at 2024-04-17 10:51:13.459548, Succsesfully
+Will Coggins, has searched for clopp slopp, By Scrolling through the SpinBox, at 2024-04-17 10:51:13.459548, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-17 10:51:13.039679, Succsesfully
+Will Coggins, has logged into the app at 2024-04-17 10:52:21.233213
+Will Coggins, has searched for an Appointment with the ID 5, By Scrolling through the SpinBox, at 2024-04-17 10:52:21.549779, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 5, at 2024-04-17 10:52:21.549779, Succsesfully
+Will Coggins, has searched for clopp slopp, by using the Clinician Combo Box, at 2024-04-17 10:52:21.549779, Succsesfully
+Will Coggins, has searched for clopp slopp, By Scrolling through the SpinBox, at 2024-04-17 10:52:21.549779, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-17 10:52:21.233213, Succsesfully
+Will Coggins, has logged into the app at 2024-04-17 10:56:39.060273
+Will Coggins, has searched for an Appointment with the ID 5, By Scrolling through the SpinBox, at 2024-04-17 10:56:39.418208, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 5, at 2024-04-17 10:56:39.418208, Succsesfully
+Will Coggins, has Added a new Appointment with the ID 6, at 2024-04-17 10:56:39.418208, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 6, By Scrolling through the SpinBox, at 2024-04-17 10:56:39.418208, Succsesfully
+Will Coggins, has searched for an Appointment with the ID 6, at 2024-04-17 10:56:39.418208, Succsesfully
+Will Coggins, has Edited an Appointments Data with the ID 6, at 2024-04-17 10:56:39.418208, Succsesfully
+Will Coggins, Logged out of the app, at 2024-04-17 10:56:39.060273, Succsesfully
+Will Coggins, has logged into the app at 2024-04-17 11:03:13.515661
+Will Coggins, has searched the sales data of the year: 2020, at 2024-04-17 11:03:13.886182, successfully
+Will Coggins, Logged out of the app, at 2024-04-17 11:03:13.515661, Succsesfully

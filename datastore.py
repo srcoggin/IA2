@@ -399,13 +399,13 @@ class DataStore:
             List = self.cursor.fetchall()
             return List
     
-    def NewAppointmentDS(self, AppointmentID, Date, Length, Result, ClinicianID, ServiceUsed, PatientID, Paid):
+    def NewAppointmentDS(self, AppointmentID, Date, Length, Result, ClinicianID, ServiceUsed, PatientID, Paid, Year):
         self.cursor.execute(
             """
-                INSERT INTO Appointments (ID, Date, Length, Result, CliniciansID, ServiceUsed, PatientID, Paid)
-                VALUES (:ID, :Date, :Length, :Result, :ClinicianID, :ServiceUsed, :PatientID, :Paid)
+                INSERT INTO Appointments (ID, Date, Length, Result, CliniciansID, ServiceUsed, PatientID, Paid, Year)
+                VALUES (:ID, :Date, :Length, :Result, :ClinicianID, :ServiceUsed, :PatientID, :Paid, :Year)
             """,
-            {"ID": AppointmentID, "Date": Date, "Length": Length, "Result": Result, "ClinicianID": ClinicianID, "ServiceUsed": ServiceUsed, "PatientID": PatientID, "Paid": Paid}
+            {"ID": AppointmentID, "Date": Date, "Length": Length, "Result": Result, "ClinicianID": ClinicianID, "ServiceUsed": ServiceUsed, "PatientID": PatientID, "Paid": Paid, "Year": Year}
         )
         self.db.commit()
 

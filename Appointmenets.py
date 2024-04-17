@@ -205,6 +205,7 @@ class Appointments():
         ServiceUsed = self.ui.AppointmentServiceUsed.text()
         Result = self.ui.AppointmentResult.text()
         MatchingID = self.ds.SearchAllAppointmentID()
+        Year = self.ui.AppointmentDateEdit.text().split('/')
         msg = QMessageBox()
         #3. gathers conformation from user
         msg.setText("Are you sure you want to do this?")
@@ -216,22 +217,25 @@ class Appointments():
                 if AppointmentID in MatchingID:
                     msg.setText("A Clinician Already exists under this ID...")
                     msg.setWindowTitle("Operation Failed!")
+                    msg.setStandardButtons(QMessageBox.Close)
+                    msg.exec()
                 else:
                     Access = self.mw.ClinicianLoginPinPopUpBox(False)
                     if Access == True:
                         #5. if successful, adds all details to data base
                         try:
-                            self.ds.NewAppointmentDS(AppointmentID, Date, Length, Result, ClinicianID, ServiceUsed, PatientID, Paid)
+                            self.ds.NewAppointmentDS(AppointmentID, Date, Length, Result, ClinicianID, ServiceUsed, PatientID, Paid, Year[0])
                             #6. writes interaction into .txt file
                             self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Added a new Appointment with the ID {AppointmentID}, at {self.currentdate}, Succsesfully")
                             self.mw.OperationSuccessful()
                             self.ui.AppointmentIDSpinbox.setValue(int(AppointmentID))
                             data = [f"ID: {AppointmentID} Appointment"]
                             self.ui.AppointmentComboBox.addItems(data)
+                            self.ui.AppointmentComboBox.setCurrentIndex(AppointmentID)
                         except:
                             #5.5 this could run if one of the fields of data hasn't been entered
                             msg = QMessageBox()
-                            msg.setText("The Data provided either contains Null info")
+                            msg.setText("The Data provided contains Null info")
                             msg.setWindowTitle("This Can't Be Done!")
                             msg.setStandardButtons(QMessageBox.Close)
                             msg.exec()

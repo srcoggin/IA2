@@ -301,6 +301,8 @@ class Patients():
                 if PatientID in MatchingID:
                     msg.setText("A Patient Already exists under this ID...")
                     msg.setWindowTitle("Operation Failed!")
+                    msg.setStandardButtons(QMessageBox.Close)
+                    msg.exec()
                 else:
                     Access = self.mw.ClinicianLoginPinPopUpBox(False)
                     if Access == True:

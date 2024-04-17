@@ -209,6 +209,7 @@ class Clinicians():
         self.ui.ClinicianIDEdit.clear()
         self.ui.ClinicianIDSpinBox.setValue(0)
         self.ui.PhotoLabelClinician.clear()
+        self.ui.costedit.clear()
 
     def EditClinicianData(self):
         ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
@@ -248,7 +249,6 @@ class Clinicians():
                             data = self.ds.ClinicianDisplayComboBox()
                             sorteddata = sorted(data, reverse=False)
                             self.ui.ClinicianComboBox.addItems(sorteddata)
-                          
                         except:
                             msg = QMessageBox()
                             msg.setText("The Data provided contains Null info")
@@ -327,6 +327,8 @@ class Clinicians():
                 if ClinicianID in MatchingID:
                     msg.setText("A Clinician Already exists under this ID...")
                     msg.setWindowTitle("Operation Failed!")
+                    msg.setStandardButtons(QMessageBox.Close)
+                    msg.exec()
                 else:
                     Access = self.mw.ClinicianLoginPinPopUpBox(False)
                     if Access == True:
@@ -334,7 +336,7 @@ class Clinicians():
                             self.ds.NewClinicianDS(FirstName, LastName, Department, ClinicianID, Role, LoginPin, Services, Cost)
                             self.LogFile.write(f"\n{ClinFirstName} {ClinLastName}, has Added a new Patient, {FirstName} {LastName}, at {self.currentdate}, Succsesfully")
                             self.mw.OperationSuccessful()
-                            data = [f"({ClinicianID},) Clinician"]
+                            data = [f"ID: {ClinicianID} Clinician"]
                             self.ui.ClinicianComboBox.addItems(data)
                         except:
                             msg = QMessageBox()
@@ -382,6 +384,7 @@ class Clinicians():
                 self.ui.ClinicianIDEdit.clear()
                 self.ui.ClinicianIDSpinBox.setValue(0)
                 self.ui.PhotoLabelClinician.clear()
+                self.ui.costedit.clear()
             else:
                 item = self.ui.ClinicianComboBox.currentText()
                 value = [item.split(':')[1].strip()[0]]
