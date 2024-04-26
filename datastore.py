@@ -14,6 +14,15 @@ class DataStore:
 
     #Patient Functions
     def SearchAllPatientID(self):
+        """
+        This function selects all patient IDs from the Patients table.
+
+        Args:
+            ID: The Patient ID
+
+        Returns:
+            A Dictionary with all IDs from the Patients in the DataBase.
+        """
         self.cursor.execute(
          """
                 SELECT ID FROM Patients
@@ -27,6 +36,7 @@ class DataStore:
     
     def SearchAllDOBS(self):
         self.cursor.execute(
+        
          """
                 SELECT ID FROM Patients
             """
@@ -49,6 +59,16 @@ class DataStore:
         return List
     
     def SelectMatchingPatientDateOfBirth(self, dob):
+        """
+        This function selects all patients from the Patients table where the DateOfBirth field matches the provided 'dob' argument.
+
+        Args:
+            dob: A string representing the date of birth in a format compatible with the database's DateOfBirth field.
+
+        Returns:
+            A list of dictionaries. Each dictionary represents a patient record with all their information, where the 'dob' argument matches the 
+            DateOfBirth DataBase Field.
+        """
         self.cursor.execute(
             """
                 SELECT * FROM Patients
@@ -60,6 +80,17 @@ class DataStore:
         return List
     
     def SelectMatchingPatientName(self, firstname, lastname):
+        """
+            This function selects all patients from the Patients table where the FirstName field matches the provided 'firstname' argument 
+            and the LastName field matches the provided 'lastname' argument.
+
+            Args:
+                firstname: A string representing the patient's first name.
+                lastname: A string representing the patient's last name.
+
+            Returns:
+                A dictionary that contains the matching patients information.
+        """
         self.cursor.execute(
             """
                 SELECT * FROM Patients
@@ -139,6 +170,12 @@ class DataStore:
         self.db.commit()
     
     def DeletePatient(self, PatientID):
+        """
+        This function deletes a patient from the Patients table based on their ID.
+
+        Args:
+            PatientID: An integer representing the unique ID of the patient to be deleted.
+        """
         self.cursor.execute(
             """
                 DELETE FROM Patients
@@ -149,12 +186,25 @@ class DataStore:
         self.db.commit()
 
     def NewPatientDS(self, FirstName, LastName, PatientID, Weight, Height, Address, DateOfBirth):
+        """
+        This function adds a new patient record to the Patients table.
+
+        Args:
+                FirstName: A string representing the patient's first name.
+                LastName: A string representing the patient's last name.
+                PatientID: An integer representing the unique ID for the new patient.
+                Weight: A number representing the patient's weight (kg).
+                Height: A number representing the patient's height (cm).
+                Address: A string representing the patient's address.
+                DateOfBirth: A string representing the patient's date of birth in a format compatible with the database's DateOfBirth field.
+        """
         self.cursor.execute(
             """
                 INSERT INTO Patients (ID, FirstName, Lastname, Weight, Height, Address, DateOfBirth)
                 VALUES (:PatientID, :FirstName, :LastName, :Weight, :Height, :Address, :DateOfBirth)
             """,
-            {"PatientID": PatientID, "FirstName": FirstName, "LastName": LastName, "Weight": Weight, "Height": Height, "Address": Address, "DateOfBirth": DateOfBirth}
+            {"PatientID": PatientID, "FirstName": FirstName, "LastName": LastName, 
+             "Weight": Weight, "Height": Height, "Address": Address, "DateOfBirth": DateOfBirth}
         )
         self.db.commit()
     

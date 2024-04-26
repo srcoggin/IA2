@@ -97,7 +97,14 @@ class Appointments():
         ClinLastName = self.ds.MatchingClinicianLastName(self.ui.LoginPage_PinEnter.text())
         #2. checks to see if the value selected is a valid ID
         if self.ui.AppointmentIDSpinbox.value() == 0:
-            pass
+            self.ui.AppointmentIDInput.clear()
+            self.ui.AppointmentDateEdit.clear()
+            self.ui.AppointmentLengthEdit.clear()
+            self.ui.AppointmentPaidEdit.clear()
+            self.ui.AppointmentClinicianEdit.clear()
+            self.ui.AppointmentPatientID.clear()
+            self.ui.AppointmentServiceUsed.clear()
+            self.ui.AppointmentResult.clear()
         else:
             if self.ui.AppointmentIDSpinbox.value() != self.ui.AppointmentIDInput.text():
                 ID = str(self.ui.AppointmentIDSpinbox.value())

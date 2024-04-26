@@ -54,7 +54,15 @@ class Clinicians():
         ClinFirstName = self.ds.MatchingClinicianFirstName(self.ui.LoginPage_PinEnter.text())
         ClinLastName = self.ds.MatchingClinicianLastName(self.ui.LoginPage_PinEnter.text())
         if self.ui.ClinicianIDSpinBox.value() == 0:
-            pass
+            self.ui.ClinicianFirstNameEdit.clear()
+            self.ui.ClinicianLastNameEdit.clear()
+            self.ui.ClinicianRoleEdit.clear()
+            self.ui.ClinicianServicesEdit.clear()
+            self.ui.ClinicianLoginPinEdit.clear()
+            self.ui.ClinicianDepartmentEdit.clear()
+            self.ui.ClinicianIDEdit.clear()
+            self.ui.PhotoLabelClinician.clear()
+            self.ui.costedit.clear()
         else:
             if self.ui.ClinicianIDSpinBox.value() != self.ui.ClinicianIDEdit.text():
                 ID = str(self.ui.ClinicianIDSpinBox.value())
